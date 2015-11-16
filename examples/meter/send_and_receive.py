@@ -17,7 +17,7 @@ class Receiver(threading.Thread):
         big_lock.release()
 
     def run(self):
-        sniff(iface="veth2", prn=lambda x: self.received(x))
+        sniff(iface="veth3", prn=lambda x: self.received(x))
 
 
 def main():
@@ -34,7 +34,7 @@ def main():
 
     while True:
         big_lock.acquire()
-        sendp(p, iface="veth0", verbose=0)
+        sendp(p, iface="veth1", verbose=0)
         print "Sent one"
         big_lock.release()
         time.sleep(packet_int)

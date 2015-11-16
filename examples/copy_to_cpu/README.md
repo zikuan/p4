@@ -24,9 +24,9 @@ We provide a small demo to let you test the program. It consists of the
 following scripts:
 - [run_switch.sh] (run_switch.sh): compile the P4 program and starts the switch,
   also configures the data plane by running the CLI [commands] (commands.txt)
-- [receive.py] (receive.py): sniff packets on port 3 (veth6) and print a hexdump
+- [receive.py] (receive.py): sniff packets on port 3 (veth7) and print a hexdump
   of them
-- [send_one.py] (send_one.py): send one simple IPv4 packet on port 0 (veth0)
+- [send_one.py] (send_one.py): send one simple IPv4 packet on port 0 (veth1)
 
 If you take a look at [commands.txt] (commands.txt), you'll notice the following
 command: `mirroring_add 250 3`. This means that all the cloned packets with
