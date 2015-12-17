@@ -1,0 +1,5 @@
+table_set_default t_ingress_1 _nop
+table_set_default t_ingress_2 _nop
+table_add t_ingress_1 set_port 0 => 2
+table_add t_ingress_1 set_port 1 => 3
+table_add t_ingress_2 _resubmit 0 =>
