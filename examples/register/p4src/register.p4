@@ -65,7 +65,9 @@ register my_register {
 }
 
 action m_action(register_idx) {
-    register_read(meta.register_tmp, my_register, register_idx);
+    modify_field_rng_uniform(meta.register_tmp, 100, 200);
+    register_write(my_register, register_idx, meta.register_tmp);
+    // register_read(meta.register_tmp, my_register, register_idx);
     // TODO
 }
 

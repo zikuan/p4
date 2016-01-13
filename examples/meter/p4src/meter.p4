@@ -14,6 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+// to test direct meters
+// #define USE_DIRECT_METER
+
 header_type ethernet_t {
     fields {
         dstAddr : 48;
@@ -58,14 +61,27 @@ action _drop() {
 action _nop() {
 }
 
+#ifdef USE_DIRECT_METER
+meter my_meter {
+    type: packets; // or bytes
+    direct: m_table;
+    result: meta.meter_tag;
+}
+#else
 meter my_meter {
     type: packets; // or bytes
     static: m_table;
     instance_count: 16384;
 }
+#endif
 
 action m_action(meter_idx) {
+#ifdef USE_DIRECT_METER
+    // just a hack to ensure that meter_idx is not removed by compiler
+    modify_field(standard_metadata.egress_spec, meter_idx);
+#else
     execute_meter(my_meter, meter_idx, meta.meter_tag);
+#endif
     modify_field(standard_metadata.egress_spec, 1);
 }
 
