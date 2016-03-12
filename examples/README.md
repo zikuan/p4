@@ -15,6 +15,7 @@ included:
 - `counter`: how to use counters in P4
 - `action_profile`: how to use action profiles in P4, using ECMP as support
 - `resubmit`: how to resubmit packets to the ingress pipelines
+- `simple_nat`: a basic implementation of a full-cone NAT for TCP traffic
 
 All examples are orgranized the same way, with a `p4src` directory containing
 the P4 source code, and a `README` file describing the P4 program and explaining
