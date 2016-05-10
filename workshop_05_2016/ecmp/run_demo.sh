@@ -22,21 +22,28 @@ P4C_BM_SCRIPT=$P4C_BM_PATH/p4c_bm/__main__.py
 
 SWITCH_PATH=$BMV2_PATH/targets/simple_switch/simple_switch
 
-CLI_PATH=$BMV2_PATH/targets/simple_switch/sswitch_CLI
+CLI_PATH=$BMV2_PATH/tools/runtime_CLI.py
 
 # Probably not very elegant but it works nice here: we enable interactive mode
 # to be able to use fg. We start the switch in the background, sleep for 2
 # minutes to give it time to start, then add the entries and put the switch
 # process back in the foreground
 set -m
-$P4C_BM_SCRIPT p4src/action_profile.p4 --json action_profile.json
+$P4C_BM_SCRIPT p4src/simple_router.p4 --json simple_router.json
+if [ $? -ne 0 ]; then
+echo "p4 compilation failed"
+exit 1
+fi
 # This gets root permissions, and gives libtool the opportunity to "warm-up"
 sudo $SWITCH_PATH >/dev/null 2>&1
-sudo $SWITCH_PATH action_profile.json \
+sudo $SWITCH_PATH simple_router.json \
     -i 0@veth0 -i 1@veth2 -i 2@veth4 -i 3@veth6 -i 4@veth8 \
-    --nanolog ipc:///tmp/bm-0-log.ipc \
+    --log-console \
     --pcap &
 sleep 2
-$CLI_PATH action_profile.json < commands.txt
+echo "**************************************"
+echo "Sending commands to switch through CLI"
+echo "**************************************"
+$CLI_PATH --json simple_router.json < commands.txt
 echo "READY!!!"
 fg

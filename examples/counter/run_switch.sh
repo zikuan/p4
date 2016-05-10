@@ -16,7 +16,7 @@
 
 THIS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-source $THIS_DIR/../env.sh
+source $THIS_DIR/../../env.sh
 
 P4C_BM_SCRIPT=$P4C_BM_PATH/p4c_bm/__main__.py
 
@@ -30,8 +30,9 @@ CLI_PATH=$BMV2_PATH/targets/simple_switch/sswitch_CLI
 # process back in the foreground
 set -m
 $P4C_BM_SCRIPT p4src/counter.p4 --json counter.json
-sudo echo "sudo" > /dev/null
-sudo $BMV2_PATH/targets/simple_switch/simple_switch counter.json \
+# This gets root permissions, and gives libtool the opportunity to "warm-up"
+sudo $SWITCH_PATH >/dev/null 2>&1
+sudo $SWITCH_PATH counter.json \
     -i 0@veth0 -i 1@veth2 -i 2@veth4 -i 3@veth6 -i 4@veth8 \
     --nanolog ipc:///tmp/bm-0-log.ipc \
     --pcap &

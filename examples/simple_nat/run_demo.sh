@@ -21,7 +21,7 @@ fi
 
 THIS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-source $THIS_DIR/../env.sh
+source $THIS_DIR/../../env.sh
 
 P4C_BM_SCRIPT=$P4C_BM_PATH/p4c_bm/__main__.py
 
@@ -46,8 +46,10 @@ sysctl net.ipv6.conf.$intf0.disable_ipv6=1
 sysctl net.ipv6.conf.$intf1.disable_ipv6=1
 
 $P4C_BM_SCRIPT p4src/simple_nat.p4 --json simple_nat.json
+# This gives libtool the opportunity to "warm-up"
+$SWITCH_PATH >/dev/null 2>&1
 PYTHONPATH=$PYTHONPATH:$BMV2_PATH/mininet/ python topo.py \
-    --behavioral-exe $BMV2_PATH/targets/simple_switch/simple_switch \
+    --behavioral-exe $SWITCH_PATH \
     --json simple_nat.json \
     --cli $CLI_PATH \
     --thrift-port 22222

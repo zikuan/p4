@@ -80,9 +80,9 @@ like this:
 
 You need to tell us where you cloned the `bmv2` and `p4c-bm` repositories
 :). Please update the values of the shell variables `BMV2_PATH` and
-`P4C_BM_PATH` in the `env.sh` file - located in this directory. Note that if you
-cloned both repositories in the same directory as this one (`tutorials`), you
-will not need to change the value of the variables.
+`P4C_BM_PATH` in the `env.sh` file - located in the root directory of this
+repository. Note that if you cloned both repositories in the same directory as
+this one (`tutorials`), you will not need to change the value of the variables.
 
 That's all :)
 
