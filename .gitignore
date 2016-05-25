@@ -8,3 +8,6 @@
 *.json
 
 *.pcap
+
+# Extracted solutions
+solution*/
