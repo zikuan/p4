@@ -1,0 +1,15 @@
+table_set_default send_frame _drop
+table_set_default forward _drop
+table_set_default ipv4_lpm _drop
+table_set_default set_heavy_hitter_count_table1 set_heavy_hitter_count1
+table_set_default set_heavy_hitter_count_table2 set_heavy_hitter_count2
+table_set_default set_heavy_hitter_table set_heavy_hitter
+table_add send_frame rewrite_mac 1 => 00:00:00:00:00:01
+table_add send_frame rewrite_mac 2 => 00:00:00:00:00:02
+table_add send_frame rewrite_mac 2 => 00:00:00:00:00:03
+table_add forward set_dmac 10.0.0.1 => 00:00:00:00:00:01
+table_add forward set_dmac 10.0.0.2 => 00:00:00:00:00:02
+table_add forward set_dmac 10.0.0.3 => 00:00:00:00:00:03
+table_add ipv4_lpm set_nhop 10.0.0.1/32 => 10.0.0.1 1
+table_add ipv4_lpm set_nhop 10.0.0.2/32 => 10.0.0.2 2
+table_add ipv4_lpm set_nhop 10.0.0.3/32 => 10.0.0.3 3
