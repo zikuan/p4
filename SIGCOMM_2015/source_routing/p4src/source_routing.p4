@@ -14,9 +14,22 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+// TODO: define headers & header instances
+
 parser start {
     // TODO
     return ingress;
+}
+
+// TODO: define parser states
+
+action _drop() {
+    drop();
+}
+
+action route() {
+    modify_field(standard_metadata.egress_spec, /* TODO: port field from your header */);
+    // TODO: update your header
 }
 
 control ingress {
