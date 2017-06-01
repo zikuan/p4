@@ -48,9 +48,9 @@ So in a nutshell, all this P4 program does is:
 
 We provide a small demo to let you test the program. It consists of the
 following scripts:
-- [run_switch.sh] (run_switch.sh): compile the P4 program and starts the switch,
+- [run_switch.sh](run_switch.sh): compile the P4 program and starts the switch,
   also configures the data plane by running the CLI [commands] (commands.txt).
-- [send_one.py] (send_one.py): send an IPv4 packet with options
+- [send_one.py](send_one.py): send an IPv4 packet with options
 
 To run the demo:
 - start the switch and configure the tables: `sudo ./run_switch.sh`.

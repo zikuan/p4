@@ -29,9 +29,9 @@ The original webpage for the tutorial can be found
 This repository include 2 exercises we presented at SIGCOMM: *Source Routing*
 and *Flowlet Switching*. Both exercises assume that you possess basic networking
 knowledge and some familiarity with the P4 language. Please take a look at the
-[P4 language spec] (http://p4.org/spec/) and at the example `simple_router`
-target [on p4lang]
-(https://github.com/p4lang/p4factory/tree/master/targets/simple_router/p4src).
+[P4 language spec](http://p4.org/spec/) and at the example `simple_router`
+target [on
+p4lang](https://github.com/p4lang/p4factory/tree/master/targets/simple_router/p4src).
 *Source Routing* asks you to write a P4 program from scratch to implement a
 custom source routing protocol. *Flowlet Switching* is more difficult: you will
 start from a simple P4 routing program (with ECMP) and implement a version of
@@ -95,9 +95,8 @@ P4. We will call this protocol EasyRoute. You will be designing the P4 program
 from scratch, although you are of course welcome to reuse code from other
 targets in p4lang.  To test your implementation, you will create a Mininet
 network and send messages between hosts. We provide a skeleton program:
-[source_routing/p4src/source_routing.p4]
-(source_routing/p4src/source_routing.p4), you need to implement the parser and
-the ingress control flow.
+[source_routing/p4src/source_routing.p4](source_routing/p4src/source_routing.p4),
+you need to implement the parser and the ingress control flow.
 
 ### Description of the EasyRoute protocol
 
@@ -187,8 +186,7 @@ is used to add an entry to a table
 You can look at example commands in the `flowlet_switching` directory:
 [flowlet_switching/commands.txt](flowlet_switching/commands.txt) and match them
 with the corresponding P4 tables
-[flowlet_switching/p4src/simple_router.p4]
-(flowlet_switching/p4src/simple_router.p4).
+[flowlet_switching/p4src/simple_router.p4](flowlet_switching/p4src/simple_router.p4).
 
 ### Testing your code
 
@@ -270,7 +268,7 @@ To compile and run the starter code, simply use `./run_demo.sh`. This time we
 will not be using Mininet, we will instead generate simple TCP test packets and
 send them individually to the switch to observe how it behaves. `run_demo.sh`
 will start the switch and populate the tables using the CLI commands from
-[flowlet_switching/commands.txt] (flowlet_switching/commands.txt).
+[flowlet_switching/commands.txt](flowlet_switching/commands.txt).
 
 When the switch is running, you can send test packets with `sudo
 ./run_test.py`. Note that this script will take a few seconds to complete. The
@@ -304,13 +302,13 @@ destination of our test packet.
 
 ### What you need to do
 
-1. Update the provided [P4 program] (flowlet_switching/p4src/simple_router.p4)
-to perform TCP flowlet switching. In our case, it requires adding 2 tables to
-the ingress pipeline. Remember that you can omit the 'reads' attribute for a
-table.  In this case, providing you configure the default action of the table
-correctly, the default action will always be performed.
+1. Update the provided [P4 program](flowlet_switching/p4src/simple_router.p4) to
+perform TCP flowlet switching. In our case, it requires adding 2 tables to the
+ingress pipeline. Remember that you can omit the 'reads' attribute for a table.
+In this case, providing you configure the default action of the table correctly,
+the default action will always be performed.
 
-2. Update [commands.txt] (flowlet_switching/commands.txt) to configure your new
+2. Update [commands.txt](flowlet_switching/commands.txt) to configure your new
 tables.
 
 3. Run the above test again. Observe how the list of ports alternate between 1

@@ -12,7 +12,7 @@ between P4 tables is not supported in bmv2.
 
 As always, you can start the switch with `./run_switch.sh` (and wait until
 `READY` is displayed). We program the dataplane with the following CLI commands
-(from [commands.txt] (commands.txt)):
+(from [commands.txt](commands.txt)):
 
 ```
 01. table_indirect_create_group ecmp_group

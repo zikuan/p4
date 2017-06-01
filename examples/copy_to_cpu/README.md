@@ -13,7 +13,7 @@ The P4 program does the following:
   to `0xab`)
 - the original packet is dropped in the egress pipeline
 
-Take a look at the [P4 code] (p4src/copy_to_cpu.p4). The program is very short
+Take a look at the [P4 code](p4src/copy_to_cpu.p4). The program is very short
 and should be easy to understand.  You will notice that we use a mirror session
 id of `250` in the program. This number is not relevant in itself, but needs to
 be consistent between the P4 program and the runtime application.
@@ -22,16 +22,16 @@ be consistent between the P4 program and the runtime application.
 
 We provide a small demo to let you test the program. It consists of the
 following scripts:
-- [run_switch.sh] (run_switch.sh): compile the P4 program and starts the switch,
-  also configures the data plane by running the CLI [commands] (commands.txt)
-- [receive.py] (receive.py): sniff packets on port 3 (veth7) and print a hexdump
+- [run_switch.sh](run_switch.sh): compile the P4 program and starts the switch,
+  also configures the data plane by running the CLI [commands](commands.txt)
+- [receive.py](receive.py): sniff packets on port 3 (veth7) and print a hexdump
   of them
-- [send_one.py] (send_one.py): send one simple IPv4 packet on port 0 (veth1)
+- [send_one.py](send_one.py): send one simple IPv4 packet on port 0 (veth1)
 
-If you take a look at [commands.txt] (commands.txt), you'll notice the following
+If you take a look at [commands.txt](commands.txt), you'll notice the following
 command: `mirroring_add 250 3`. This means that all the cloned packets with
 mirror id `250` will be sent to port `3`, which is our de facto *CPU port*. This
-is the reason why [receive.py] (receive.py) listens for incoming packets on port
+is the reason why [receive.py](receive.py) listens for incoming packets on port
 `3`.
 
 To run the demo:

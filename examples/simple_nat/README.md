@@ -3,8 +3,8 @@
 ## Description
 
 This program implements a very basic full-cone NAT for TCP traffic (over
-IPv4). According to [Wikipedia]
-(https://en.wikipedia.org/wiki/Network_address_translation#Methods_of_translation),
+IPv4). According to
+[Wikipedia](https://en.wikipedia.org/wiki/Network_address_translation#Methods_of_translation),
 a full-cone NAT is defined as follows:
 
 Once an internal address (iAddr:iPort) is mapped to an external address
@@ -43,7 +43,7 @@ the packet is forwarded appropriately.
 
 The most important part of the program is the `nat` table. If you understand
 what this table is doing, the rest of the program is mostly IPv4 forwarding. You
-should also take a long look at [nat_app.py] (nat_app.py), which manages the
+should also take a long look at [nat_app.py](nat_app.py), which manages the
 mappings and dynamically adds rules to the `nat` table.
 
 We use 11 as the CPU port. There is a special CPU veth pair (`cpu-veth-0` /

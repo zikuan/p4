@@ -3,7 +3,7 @@
 ## Introduction
 
 simple_router.p4 is a very simple P4 program which does L3 routing. All the P4
-code can be found in the [p4src/simple_router.p4] (p4src/simple_router.p4)
+code can be found in the [p4src/simple_router.p4](p4src/simple_router.p4)
 file. In this exercise we will try to build ECMP on top of the starter code. We
 will be assuming the following network topology:
 
@@ -33,9 +33,9 @@ packets.
 veth pairs required for the demo.*
 
 To compile and run the starter code, simply use `./run_demo.sh`. The
-[run_demo.sh] (run_demo.sh) script will run the P4 compiler (for bmv2), start
-the switch and populate the tables using the CLI commands from [commands.txt]
-(commands.txt).
+[run_demo.sh](run_demo.sh) script will run the P4 compiler (for bmv2), start the
+switch and populate the tables using the CLI commands from
+[commands.txt](commands.txt).
 
 When the switch is running, you can send test packets with `sudo
 ./run_test.py`. Note that this script will take a few seconds to complete. The
@@ -46,16 +46,17 @@ working yet.
 
 ## What you need to do
 
-1. In this exercise, you need to update the provided [P4 program]
-(p4src/simple_router.p4) to perform ECMP. When you are done, each incoming TCP
-test packet should be forwarded to either port 1 or port 2, based on the result
-of a crc16 hash computation performed on the TCP 5-tuple (`ipv4.srcAddr`,
-`ipv4.dstAddr`, `ipv4.protocol`, `tcp.srcPort`, `tcp.dstPort`). You will need to
-refer to the [P4 spec] (http://p4.org/wp-content/uploads/2015/04/p4-latest.pdf)
-to familiarize yourself with the P4 constructs you will need.
+1. In this exercise, you need to update the provided [P4
+program](p4src/simple_router.p4) to perform ECMP. When you are done, each
+incoming TCP test packet should be forwarded to either port 1 or port 2, based
+on the result of a crc16 hash computation performed on the TCP 5-tuple
+(`ipv4.srcAddr`, `ipv4.dstAddr`, `ipv4.protocol`, `tcp.srcPort`,
+`tcp.dstPort`). You will need to refer to the [P4
+spec](http://p4.org/wp-content/uploads/2015/04/p4-latest.pdf) to familiarize
+yourself with the P4 constructs you will need.
 
-2. Once you are done with the P4 code, you will need to update [commands.txt]
-(commands.txt) to configure your new tables.
+2. Once you are done with the P4 code, you will need to update
+[commands.txt](commands.txt) to configure your new tables.
 
 3. After that you can run the above test again. Once again, you will observe
 that all packets go to the same egress port. Don't panic :)! This is because all
@@ -74,8 +75,8 @@ simple_router.p4>`.
 first one requires 2 tables and the use of the
 `modify_field_with_hash_based_offset` primitive. The second one uses a single
 table with an action profile. You can read about
-`modify_field_with_hash_based_offset` and action profiles in the [P4 spec]
-(http://p4.org/wp-content/uploads/2015/04/p4-latest.pdf).
+`modify_field_with_hash_based_offset` and action profiles in the [P4
+spec](http://p4.org/wp-content/uploads/2015/04/p4-latest.pdf).
 
 3. If you choose to use the first way (with 2 tables), your first table will
 match on the destination IP address and be in charge of computing an index
