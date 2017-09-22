@@ -173,10 +173,21 @@ control MyIngress(
     
     /* TODO: Define actions and tables here */
 
+
+    action set_dst_info(mac_addr_t mac_da,
+                        mac_addr_t mac_sa,
+                        port_id_t  egress_port)
+    {
+	/* 
+	* TODO: add logic to store mac addresses and
+	 * egress ports in meta data
+	*/
+    }
+    
     
     table ipv4_lpm {
         key     = { meta.dst_ipv4 : lpm; }
-        actions = { /* TODO: add actions */ drop;  }
+	actions = { set_dst_info; drop;  }
         default_action = drop();
     }
 

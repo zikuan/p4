@@ -117,11 +117,11 @@ well as a hard-coded MAC address for the switch.
 
     1. An action for `drop`.
 
-    1. An action (named `ipv4_forward`) to store information in the metadata
+    1. An action (named `set_dst_info`) to store information in the metadata
     structure, rather than immediately writing to the packet header.
 
     1. A table (named `ipv4_lpm`) that will match on the destination IP address
-    and invoke the `ipv4_forward` action.
+    and invoke the `set_dst_info` action.
 
     1. An action to send an ICMP reply.
 
