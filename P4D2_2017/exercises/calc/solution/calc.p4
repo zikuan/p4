@@ -134,7 +134,7 @@ parser MyParser(
  ************   C H E C K S U M    V E R I F I C A T I O N   *************
  *************************************************************************/
 control MyVerifyChecksum(
-    in    my_headers_t   hdr,
+    inout my_headers_t   hdr,
     inout my_metadata_t  meta)
 {
     apply {
