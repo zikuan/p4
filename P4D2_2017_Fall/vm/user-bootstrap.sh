@@ -38,7 +38,6 @@ cd ..
 pip install crcmod
 git clone https://github.com/p4lang/tutorials
 cd tutorials
-git checkout sigcomm_17
 cd ..
 sudo mv tutorials /home/p4
 sudo chown -R p4:p4 /home/p4/tutorials
