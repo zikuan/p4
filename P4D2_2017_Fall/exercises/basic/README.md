@@ -32,7 +32,7 @@ up a switch in Mininet to test its behavior.
 
 1. In your shell, run:
    ```bash
-   ./run.sh
+   make run
    ```
    This will:
    * compile `basic.p4`, and
@@ -57,6 +57,14 @@ server. In `h2`'s xterm, start the server:
    ```
    The message will not be received.
 5. Type `exit` to leave each xterm and the Mininet command line.
+   Then, to stop mininet:
+   ```bash
+   make stop
+   ```
+   And to delete all pcaps, build files, and logs:
+   ```bash
+   make clean
+   ```
 
 The message was not received because each switch is programmed
 according to `basic.p4`, which drops all packets on arrival.
@@ -154,7 +162,7 @@ running in the background. Use the following command to clean up
 these instances:
 
 ```bash
-mn -c
+make stop
 ```
 
 ## Next Steps

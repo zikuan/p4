@@ -47,7 +47,6 @@ apt-get install -y --no-install-recommends \
   libtool \
   lubuntu-desktop \
   make \
-  mininet \
   mktemp \
   pkg-config \
   python \

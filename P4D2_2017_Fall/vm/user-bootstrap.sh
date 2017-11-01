@@ -13,6 +13,12 @@ GRPC_COMMIT="tags/v1.3.0"
 
 NUM_CORES=`grep -c ^processor /proc/cpuinfo`
 
+# Mininet
+git clone git://github.com/mininet/mininet mininet
+cd mininet
+sudo ./util/install.sh -nwv
+cd ..
+
 # Protobuf
 git clone https://github.com/google/protobuf.git
 cd protobuf
