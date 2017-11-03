@@ -60,6 +60,7 @@ class ExerciseTopo(Topo):
         Topo.__init__(self, **opts)
         host_links = []
         switch_links = []
+        self.sw_port_mapping = {}
 
         for link in links:
             if link['node1'][0] == 'h':
@@ -88,10 +89,29 @@ class ExerciseTopo(Topo):
             self.addLink(host_name, host_sw,
                          delay=link['latency'], bw=link['bandwidth'],
                          addr1=host_mac, addr2=host_mac)
+            self.addSwitchPort(host_sw, host_name)
 
         for link in switch_links:
             self.addLink(link['node1'], link['node2'],
                         delay=link['latency'], bw=link['bandwidth'])
+            self.addSwitchPort(link['node1'], link['node2'])
+            self.addSwitchPort(link['node2'], link['node1'])
+
+        self.printPortMapping()
+
+    def addSwitchPort(self, sw, node2):
+        if sw not in self.sw_port_mapping:
+            self.sw_port_mapping[sw] = []
+        portno = len(self.sw_port_mapping[sw])+1
+        self.sw_port_mapping[sw].append((portno, node2))
+
+    def printPortMapping(self):
+        print "Switch port mapping:"
+        for sw in sorted(self.sw_port_mapping.keys()):
+            print "%s: " % sw,
+            for portno, node2 in self.sw_port_mapping[sw]:
+                print "%d:%s\t" % (portno, node2),
+            print
 
 
 class ExerciseRunner:
@@ -116,9 +136,9 @@ class ExerciseRunner:
         if not self.quiet:
             print(' '.join(items))
 
-    def formatLatency(l):
+    def formatLatency(self, l):
         """ Helper method for parsing link latencies from the topology json. """
-        if isinstance(latencies[l], (str, unicode)):
+        if isinstance(l, (str, unicode)):
             return l
         else:
             return str(l) + "ms"

@@ -30,7 +30,7 @@ network in Mininet to test its behavior.
 
 1. In your shell, run:
    ```bash
-   ./run.sh
+   make
    ```
    This will:
    * compile `ecn.p4`, and
@@ -44,7 +44,7 @@ network in Mininet to test its behavior.
 2. We want to send a low rate traffic from `h1` to `h2` and a high
 rate iperf traffic from `h11` to `h22`.  The link between `s1` and
 `s2` is common between the flows and is a bottleneck because we
-reduced its bandwidth to 512kbps in p4app.json.  Therefore, if we
+reduced its bandwidth to 512kbps in topology.json.  Therefore, if we
 capture packets at `h2`, we should see the right ECN value.
 
 3. You should now see a Mininet command prompt. Open four terminals
@@ -158,11 +158,11 @@ How can we let the user configure the threshold?
 
 There are several ways that problems might manifest:
 
-1. `ecn.p4` fails to compile.  In this case, `run.sh` will report the
+1. `ecn.p4` fails to compile.  In this case, `make` will report the
    error emitted from the compiler and stop.
 2. `ecn.p4` compiles but does not support the control plane rules in
-   the `sX-commands.txt` files that `run.sh` tries to install using
-   the BMv2 CLI.  In this case, `run.sh` will report these errors to
+   the `sX-commands.txt` files that `make` tries to install using
+   the BMv2 CLI.  In this case, `make` will report these errors to
    `stderr`.  Use these error messages to fix your `ecn.p4`
    implementation.
 3. `ecn.p4` compiles, and the control plane rules are installed, but
@@ -180,12 +180,12 @@ There are several ways that problems might manifest:
 
 #### Cleaning up Mininet
 
-In the latter two cases above, `run.sh` may leave a Mininet instance
+In the latter two cases above, `make` may leave a Mininet instance
 running in the background.  Use the following command to clean up
 these instances:
 
 ```bash
-mn -c
+make stop
 ```
 
 ## Next Steps
