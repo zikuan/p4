@@ -24,7 +24,7 @@ up a switch in Mininet to test its behavior.
 
 1. In your shell, run:
    ```bash
-   ./run.sh
+   make
    ```   
    This will:
    * compile `load_balance.p4`, and
@@ -64,7 +64,7 @@ with parameters supplied by the control plane as part of the rule.
 
 In this exercise, the control plane logic has already been
 implemented.  As part of bringing up the Mininet instance, the
-`run.sh` script will install packet-processing rules in the tables of
+`make` script will install packet-processing rules in the tables of
 each switch.  These are defined in the `s1-commands.txt` file.
 
 **Important:** A P4 program also defines the interface between the
@@ -112,12 +112,12 @@ messages, some should be received by each server.
 
 There are several ways that problems might manifest:
 
-1. `load_balance.p4` fails to compile.  In this case, `run.sh` will
+1. `load_balance.p4` fails to compile.  In this case, `make` will
 report the error emitted from the compiler and stop.
 
 2. `load_balance.p4` compiles but does not support the control plane
-rules in the `sX-commands.txt` files that `run.sh` tries to install
-using the BMv2 CLI.  In this case, `run.sh` will report these errors
+rules in the `sX-commands.txt` files that `make` tries to install
+using the BMv2 CLI.  In this case, `make` will report these errors
 to `stderr`.  Use these error messages to fix your `load_balance.p4`
 implementation.
 
@@ -129,7 +129,7 @@ detailed and can help pinpoint logic errors in your implementation.
 
 #### Cleaning up Mininet
 
-In the latter two cases above, `run.sh` may leave a Mininet instance
+In the latter two cases above, `make` may leave a Mininet instance
 running in the background.  Use the following command to clean up
 these instances:
 

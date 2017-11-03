@@ -19,7 +19,7 @@ switch in Mininet to test its behavior.
 
 1. In your shell, run:
    ```bash
-   ./run.sh
+   make
    ```
    This will:
    * compile `calc.p4`, and

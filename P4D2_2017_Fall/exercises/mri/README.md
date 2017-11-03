@@ -31,7 +31,7 @@ switch in Mininet to test its behavior.
 
 1. In your shell, run:
    ```bash
-   ./run.sh
+   make
    ```
    This will:
    * compile `mri.p4`, and
@@ -46,7 +46,7 @@ switch in Mininet to test its behavior.
 2. We want to send a low rate traffic from `h1` to `h2` and a high
    rate iperf traffic from `h11` to `h22`.  The link between `s1` and
    `s2` is common between the flows and is a bottleneck because we
-   reduced its bandwidth to 512kbps in p4app.json.  Therefore, if we
+   reduced its bandwidth to 512kbps in topology.json.  Therefore, if we
    capture packets at `h2`, we should see high queue size for that
    link.
 
@@ -90,7 +90,7 @@ with parameters supplied by the control plane as part of the rule.
 
 In this exercise, the control plane logic has already been
 implemented.  As part of bringing up the Mininet instance, the
-`run.sh` script will install packet-processing rules in the tables of
+`make` script will install packet-processing rules in the tables of
 each switch. These are defined in the `sX-commands.txt` files, where
 `X` corresponds to the switch number.
 
@@ -204,11 +204,11 @@ got a packet
 
 There are several ways that problems might manifest:
 
-1. `mri.p4` fails to compile. In this case, `run.sh` will report the
+1. `mri.p4` fails to compile. In this case, `make` will report the
 error emitted from the compiler and stop.
 2. `mri.p4` compiles but does not support the control plane rules in
-the `sX-commands.txt` files that `run.sh` tries to install using the BMv2 CLI.
-In this case, `run.sh` will report these errors to `stderr`. Use these error
+the `sX-commands.txt` files that `make` tries to install using the BMv2 CLI.
+In this case, `make` will report these errors to `stderr`. Use these error
 messages to fix your `mri.p4` implementation.
 3. `mri.p4` compiles, and the control plane rules are installed, but
 the switch does not process packets in the desired way. The
@@ -220,16 +220,16 @@ packets on each interface. Use `tcpdump -r <filename> -xxx` to print
 the hexdump of the packets.
 4. `mri.p4` compiles and all rules are installed. Packets go through
 and the logs show that the queue length is always 0.  Then either
-reduce the link bandwidth in `p4app.json`.
+reduce the link bandwidth in `topology.json`.
 
 #### Cleaning up Mininet
 
-In the latter two cases above, `run.sh` may leave a Mininet instance
+In the latter two cases above, `make` may leave a Mininet instance
 running in the background.  Use the following command to clean up
 these instances:
 
 ```bash
-mn -c
+make stop
 ```
 
 ## Next Steps

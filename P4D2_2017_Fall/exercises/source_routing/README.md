@@ -31,14 +31,14 @@ bring up a network in Mininet to test its behavior.
 
 1. In your shell, run:
    ```bash
-   ./run.sh
+   make
    ```
    This will:
    * compile `source_routing.p4`, and
    * start a Mininet instance with three switches (`s1`, `s2`, `s3`) configured
      in a triangle, each connected to one host (`h1`, `h2`, `h3`).
      Check the network topology using the `net` command in mininet.
-     You can also change the topology in p4app.json
+     You can also change the topology in topology.json
    * The hosts are assigned IPs of `10.0.1.1`, `10.0.2.2`, etc
      (`10.0.<Switchid>.<hostID>`).
 
@@ -117,7 +117,7 @@ path, so that source routing would be transparent to end-hosts?
 
 There are several ways that problems might manifest:
 
-1. `source_routing.p4` fails to compile. In this case, `run.sh` will
+1. `source_routing.p4` fails to compile. In this case, `make` will
    report the error emitted from the compiler and stop.
 2. `source_routing.p4` compiles but switches or mininet do not start.
    Do you have another instance of mininet running? Did the previous
@@ -133,7 +133,7 @@ There are several ways that problems might manifest:
 
 #### Cleaning up Mininet
 
-In the cases above, `run.sh` may leave a Mininet instance running in
+In the cases above, `make` may leave a Mininet instance running in
 the background.  Use the following command to clean up these
 instances:
 
