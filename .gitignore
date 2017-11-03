@@ -1,5 +1,6 @@
 # Python byte code
 *.pyc
+*.pyo
 
 # Emacs
 *~
@@ -18,3 +19,9 @@ build*/
 
 # Vagrant
 .vagrant/
+
+# Mac OS
+*.DS_Store
+
+# IntelliJ / PyCharm
+.idea/

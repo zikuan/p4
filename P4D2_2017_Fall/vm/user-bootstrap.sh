@@ -45,6 +45,8 @@ sudo make install
 sudo ldconfig
 unset LDFLAGS
 cd ..
+# Install gRPC Python Package
+sudo pip install grpcio
 
 # BMv2 deps (needed by PI)
 git clone https://github.com/p4lang/behavioral-model.git

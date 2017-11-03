@@ -5,7 +5,8 @@ Vagrant.configure(2) do |config|
   config.vm.box = "bento/ubuntu-16.04"
   config.vm.provider "virtualbox" do |vb|
     vb.gui = true
-    vb.memory = "2048"
+    vb.memory = 2048
+    vb.cpus = 2
     vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
   end
   config.vm.synced_folder '.', '/vagrant', disabled: true  

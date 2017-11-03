@@ -31,24 +31,38 @@ from mininet.topo import Topo
 from mininet.link import TCLink
 from mininet.cli import CLI
 
-
-
-first_thrift_port = 9090
-next_thrift_port = first_thrift_port
+from p4runtime_switch import P4RuntimeSwitch
 
 def configureP4Switch(**switch_args):
     """ Helper class that is called by mininet to initialize
         the virtual P4 switches. The purpose is to ensure each
         switch's thrift server is using a unique port.
     """
-    class ConfiguredP4Switch(P4Switch):
-        def __init__(self, *opts, **kwargs):
-            global next_thrift_port
-            kwargs.update(switch_args)
-            kwargs['thrift_port'] = next_thrift_port
-            next_thrift_port += 1
-            P4Switch.__init__(self, *opts, **kwargs)
-    return ConfiguredP4Switch
+    if "sw_path" in switch_args and 'grpc' in switch_args['sw_path']:
+        # If grpc appears in the BMv2 switch target, we assume will start P4 Runtime
+        class ConfiguredP4RuntimeSwitch(P4RuntimeSwitch):
+            def __init__(self, *opts, **kwargs):
+                kwargs.update(switch_args)
+                P4RuntimeSwitch.__init__(self, *opts, **kwargs)
+
+            def describe(self):
+                print "%s -> gRPC port: %d" % (self.name, self.grpc_port)
+
+        return ConfiguredP4RuntimeSwitch
+    else:
+        class ConfiguredP4Switch(P4Switch):
+            next_thrift_port = 9090
+            def __init__(self, *opts, **kwargs):
+                global next_thrift_port
+                kwargs.update(switch_args)
+                kwargs['thrift_port'] = ConfiguredP4Switch.next_thrift_port
+                ConfiguredP4Switch.next_thrift_port += 1
+                P4Switch.__init__(self, *opts, **kwargs)
+
+            def describe(self):
+                print "%s -> Thrift port: %d" % (self.name, self.thrift_port)
+
+        return ConfiguredP4Switch
 
 
 class ExerciseTopo(Topo):
@@ -312,6 +326,8 @@ class ExerciseRunner:
                   been called.
         """
         self.logger("Starting mininet CLI")
+        for s in self.net.switches:
+            s.describe()
         for h in self.net.hosts:
             h.describe()
         # Generate a message that will be printed by the Mininet CLI to make
@@ -324,10 +340,11 @@ class ExerciseRunner:
         print('and your initial configuration is loaded. You can interact')
         print('with the network using the mininet CLI below.')
         print('')
-        print('To inspect or change the switch configuration, connect to')
-        print('its CLI from your host operating system using this command:')
-        print('  simple_switch_CLI --thrift-port <switch thrift port>')
-        print('')
+        if self.switch_json:
+            print('To inspect or change the switch configuration, connect to')
+            print('its CLI from your host operating system using this command:')
+            print('  simple_switch_CLI --thrift-port <switch thrift port>')
+            print('')
         print('To view a switch log, run this command from your host OS:')
         print('  tail -f %s/<switchname>.log' %  self.log_dir)
         print('')
@@ -349,13 +366,16 @@ def get_args():
                         type=str, required=False, default='./topology.json')
     parser.add_argument('-l', '--log-dir', type=str, required=False, default=default_logs)
     parser.add_argument('-p', '--pcap-dir', type=str, required=False, default=default_pcaps)
-    parser.add_argument('-j', '--switch_json', type=str, required=True)
+    parser.add_argument('-j', '--switch_json', type=str, required=False)
     parser.add_argument('-b', '--behavioral-exe', help='Path to behavioral executable',
                                 type=str, required=False, default='simple_switch')
     return parser.parse_args()
 
 
 if __name__ == '__main__':
+    # from mininet.log import setLogLevel
+    # setLogLevel("info")
+
     args = get_args()
     exercise = ExerciseRunner(args.topo, args.log_dir, args.pcap_dir,
                               args.switch_json, args.behavioral_exe, args.quiet)
