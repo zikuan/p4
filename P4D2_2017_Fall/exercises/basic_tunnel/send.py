@@ -25,7 +25,7 @@ def get_if():
 def main():
 
     if len(sys.argv)<4:
-        print 'pass 2 arguments: <ip_addr> <dst_nid> "<message>"'
+        print 'pass 3 arguments: <ip_addr> <dst_nid> "<message>"'
         exit(1)
 
     addr = socket.gethostbyname(sys.argv[1])
