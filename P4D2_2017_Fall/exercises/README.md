@@ -9,7 +9,7 @@ programming, organized into four modules:
 
 1. Introduction
 * [Basic Forwarding](./basic)
-* [Scrambler](./scrambler)
+* [Basic Tunneling](./basic_tunnel)
 
 2. Monitoring and Debugging
 * [Explicit Congestion Notification](./ecn)
@@ -21,7 +21,6 @@ programming, organized into four modules:
 
 4. Dynamic Behavior
 * [Load Balancing](./load_balance)
-* [HULA](./hula)
 
 ## Obtaining required software
 
