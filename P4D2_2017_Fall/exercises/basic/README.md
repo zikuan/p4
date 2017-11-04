@@ -140,7 +140,7 @@ Other questions to consider:
 
 There are several problems that might manifest as you develop your program:
 
-1. `basic.p4` might fails to compile. In this case, `run.sh` will
+1. `basic.p4` might fail to compile. In this case, `run.sh` will
 report the error emitted from the compiler and halt.
 
 2. `basic.p4` might compile but fail to support the control plane
@@ -167,6 +167,7 @@ make stop
 
 ## Next Steps
 
-Congratulations, your implementation works!  Move on to the next
-exercise: implementing the [basic tunneling](./basic_tunnel)!
+Congratulations, your implementation works! In the next exercise we
+will build on top of this and add support for a basic tunneling
+protocol: [basic_tunnel](../basic_tunnel)!
 

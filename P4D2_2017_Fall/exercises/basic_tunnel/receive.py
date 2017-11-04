@@ -6,7 +6,7 @@ import os
 from scapy.all import sniff, sendp, hexdump, get_if_list, get_if_hwaddr
 from scapy.all import Packet, IPOption
 from scapy.all import ShortField, IntField, LongField, BitField, FieldListField, FieldLenField
-from scapy.all import IP, UDP, Raw
+from scapy.all import IP, TCP, UDP, Raw
 from scapy.layers.inet import _IPOption_HDR
 from myTunnel_header import MyTunnel
 
@@ -23,7 +23,7 @@ def get_if():
     return iface
 
 def handle_pkt(pkt):
-    if MyTunnel in pkt:
+    if MyTunnel in pkt or (TCP in pkt and pkt[TCP].dport == 1234):
         print "got a packet"
         pkt.show2()
 #        hexdump(pkt)
