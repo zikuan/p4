@@ -168,4 +168,5 @@ make stop
 ## Next Steps
 
 Congratulations, your implementation works!  Move on to the next
-exercise: implementing the [scrambler](../scrambler)!
+exercise: implementing the [basic tunneling](./basic_tunnel)!
+

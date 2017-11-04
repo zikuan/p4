@@ -139,5 +139,4 @@ mn -c
 
 ## Next Steps
 
-Congratulations, your implementation works!  Move on to the next
-exercise: [HULA](../hula).
+Congratulations, your implementation works! 

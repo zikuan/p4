@@ -160,4 +160,4 @@ mn -c
 ## Next Steps
 
 Congratulations, your implementation works!  Move on to the next
-exercise: implementing the [scrambler](../scrambler)!
+exercise: implementing [Explicit Congestion Notification](../ecn).
