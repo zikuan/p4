@@ -38,7 +38,7 @@ switch in Mininet to test its behavior.
    * start a Mininet instance with three switches (`s1`, `s2`, `s3`) configured
      in a triangle. There are 5 hosts. `h1` and `h11` are connected to `s1`.
      `h2` and `h22` are connected to `s2` and `h3` is connected to `s3`.     
-   * The hosts are assigned IPs of `10.0.1.10`, `10.0.2.10`, etc
+   * The hosts are assigned IPs of `10.0.1.1`, `10.0.2.2`, etc
      (`10.0.<Switchid>.<hostID>`).
    * The control plane programs the P4 tables in each switch based on
      `sx-commands.txt`
@@ -193,10 +193,13 @@ got a packet
       |   |###[ SwitchTrace ]###
       |   |  swid      = 1
       |   |  qdepth    = 17
+###[ UDP ]###
+        sport     = 1234
+        dport     = 4321
+        len       = 18
+        chksum    = 0x1c7b
 ###[ Raw ]###
-        load      = '\x04\xd2'
-###[ Padding ]###
-           load      = '\x10\xe1\x00\x12\x1c{P4 is cool'
+           load      = 'P4 is cool'
 
 ```
 

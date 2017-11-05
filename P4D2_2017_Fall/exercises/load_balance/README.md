@@ -4,9 +4,9 @@ In this exercise, you will implement a form of load balancing based on
 a single version of Equal-Cost Multipath Forwarding. The switch you
 will implement will use two tables to forward packets to one of two
 destination hosts at random. The first table will use a hash function
-(applied to a 5-tuple consisting of the source and destination
-Ethernet addresses, source and destination IP addresses, and IP
-protocol) to select one of two hosts. The second table will use the
+(applied to a 5-tuple consisting of the source and destination 
+IP addresses, IP protocol, and source and destination TCP ports) 
+to select one of two hosts. The second table will use the
 computed hash value to forward the packet to the selected host.
 
 > **Spoiler alert:** There is a reference solution in the `solution`
