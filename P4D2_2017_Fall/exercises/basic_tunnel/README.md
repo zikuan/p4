@@ -25,7 +25,7 @@ to ensure that the IP routing is working as expected.
 
 1. In your shell, run:
    ```bash
-   ./run.sh
+   make run
    ```
    This will:
    * compile `basic_tunnel.p4`, and
@@ -66,11 +66,11 @@ within each table are inserted by the control plane. When a rule
 matches a packet, its action is invoked with parameters supplied by
 the control plane as part of the rule.
 
-In this exercise, you will need to add a couple of static control plane
-rules for the tunneling protocol. As part of bringing up the Mininet 
-instance, the `run.sh` script will install packet-processing rules in
-the tables of each switch. These are defined in the `sX-commands.txt`
-files, where `X` corresponds to the switch number.
+For this exercise, we have already added the necessary static control
+plane entries. As part of bringing up the Mininet instance, the 
+`make run` command will install packet-processing rules in the tables
+of each switch. These are defined in the `sX-commands.txt` files, 
+where `X` corresponds to the switch number.
 
 **Important:** A P4 program also defines the interface between the
 switch pipeline and control plane. The commands in the files
@@ -89,8 +89,8 @@ does not exist in the packet.
 
 Your job will be to do the following:
 
-1. **TODO:** Add a new header type called `myTunnel_t` that contains two 16-bit fields: `proto_id` and `dst_id`.
-2. **TODO:** Add a `myTunnel_t` header to the `headers` struct.
+1. **NOTE:** A new header type has been added called `myTunnel_t` that contains two 16-bit fields: `proto_id` and `dst_id`.
+2. **NOTE:** The `myTunnel_t` header has been added to the `headers` struct.
 2. **TODO:** Update the parser to extract either the `myTunnel` header or `ipv4` header based on the `etherType` field in the Ethernet header. The parser should also extract the `ipv4` header after the `myTunnel` header if `proto_id` == `TYPE_IPV4` (i.e. 0x0800).
 3. **TODO:** Define a new action called `myTunnel_forward` that simply sets the egress port (i.e. `egress_spec` field of the `standard_metadata` bus) to the port number provided by the control plane.
 4. **TODO:** Define a new table called `myTunnel_exact` that perfoms an exact match on the `dst_id` field of the `myTunnel` header. This table should invoke either the `myTunnel_forward` action if the there is a match in the table and it should invoke the `drop` action otherwise.
@@ -134,12 +134,12 @@ Hints:
 
 There are several problems that might manifest as you develop your program:
 
-1. `basic_tunnel.p4` might fail to compile. In this case, `run.sh` will
+1. `basic_tunnel.p4` might fail to compile. In this case, `make run` will
 report the error emitted from the compiler and halt.
 
 2. `basic_tunnel.p4` might compile but fail to support the control plane
 rules in the `s1-commands.txt` through `s3-command.txt` files that
-`run.sh` tries to install using the Bmv2 CLI. In this case, `run.sh`
+`make run` tries to install using the Bmv2 CLI. In this case, `make run`
 will report these errors to `stderr`. Use these error messages to fix
 your `basic_tunnel.p4` implementation or forwarding rules.
 
@@ -151,12 +151,12 @@ detailed and can help pinpoint logic errors in your implementation.
 
 #### Cleaning up Mininet
 
-In the latter two cases above, `run.sh` may leave a Mininet instance
+In the latter two cases above, `make` may leave a Mininet instance
 running in the background. Use the following command to clean up
 these instances:
 
 ```bash
-mn -c
+make stop
 ```
 
 ## Next Steps
