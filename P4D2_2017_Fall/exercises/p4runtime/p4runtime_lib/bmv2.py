@@ -20,7 +20,6 @@ def buildDeviceConfig(bmv2_json_file_path=None):
     "Builds the device config for BMv2"
     device_config = p4config_pb2.P4DeviceConfig()
     device_config.reassign = True
-    # set device_config.extra to default instance
     with open(bmv2_json_file_path) as f:
         device_config.device_data = f.read()
     return device_config

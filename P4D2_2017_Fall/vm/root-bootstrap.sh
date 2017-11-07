@@ -76,3 +76,6 @@ ln -s p4-logo.png lubuntu-default-wallpaper.png
 rm /home/vagrant/p4-logo.png
 cd /home/vagrant
 sed -i s@#background=@background=/usr/share/lubuntu/wallpapers/1604-lubuntu-default-wallpaper.png@ /etc/lightdm/lightdm-gtk-greeter.conf
+
+# Disable screensaver
+apt-get -y remove light-locker

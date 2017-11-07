@@ -17,6 +17,9 @@ solution*/
 # Build folders
 build*/
 
+# Logs folders
+logs/
+
 # Vagrant
 .vagrant/
 

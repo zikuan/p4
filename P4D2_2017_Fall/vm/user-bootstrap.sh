@@ -131,3 +131,39 @@ cd /home/vagrant
 sudo mv .vim /home/p4/.vim
 sudo chown -R p4:p4 /home/p4/.vim
 
+# Adding Desktop icons
+DESKTOP=/home/${USER}/Desktop
+mkdir -p ${DESKTOP}
+
+cat > ${DESKTOP}/Terminal << EOF
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Terminal
+Name[en_US]=Terminal
+Icon=konsole
+Exec=/usr/bin/x-terminal-emulator
+Comment[en_US]=
+EOF
+
+cat > ${DESKTOP}/Wireshark << EOF
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Wireshark
+Name[en_US]=Wireshark
+Icon=wireshark
+Exec=/usr/bin/wireshark
+Comment[en_US]=
+EOF
+
+cat > ${DESKTOP}/Sublime\ Text << EOF
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Sublime Text
+Name[en_US]=Sublime Text
+Icon=sublime-text
+Exec=/opt/sublime_text/sublime_text
+Comment[en_US]=
+EOF

@@ -4,6 +4,7 @@
 
 const bit<16> TYPE_MYTUNNEL = 0x1212;
 const bit<16> TYPE_IPV4 = 0x800;
+const bit<32> MAX_TUNNEL_ID = 1 << 16;
 
 /*************************************************************************
 *********************** H E A D E R S  ***********************************
@@ -103,6 +104,9 @@ control MyIngress(inout headers hdr,
                   inout metadata meta,
                   inout standard_metadata_t standard_metadata) {
 
+    counter(MAX_TUNNEL_ID, CounterType.packets_and_bytes) ingressTunnelCounter;
+    counter(MAX_TUNNEL_ID, CounterType.packets_and_bytes) egressTunnelCounter;
+
     action drop() {
         mark_to_drop();
     }
@@ -119,8 +123,21 @@ control MyIngress(inout headers hdr,
         hdr.myTunnel.dst_id = dst_id;
         hdr.myTunnel.proto_id = hdr.ethernet.etherType;
         hdr.ethernet.etherType = TYPE_MYTUNNEL;
+        ingressTunnelCounter.count((bit<32>) hdr.myTunnel.dst_id);
     }
-    
+
+    action myTunnel_forward(egressSpec_t port) {
+        standard_metadata.egress_spec = port;
+    }
+
+    action myTunnel_egress(macAddr_t dstAddr, egressSpec_t port) {
+        standard_metadata.egress_spec = port;
+        hdr.ethernet.dstAddr = dstAddr;
+        hdr.ethernet.etherType = hdr.myTunnel.proto_id;
+        hdr.myTunnel.setInvalid();
+        egressTunnelCounter.count((bit<32>) hdr.myTunnel.dst_id);
+    }
+
     table ipv4_lpm {
         key = {
             hdr.ipv4.dstAddr: lpm;
@@ -135,19 +152,6 @@ control MyIngress(inout headers hdr,
         default_action = NoAction();
     }
 
-    direct_counter(CounterType.packets_and_bytes) tunnelCount;
-
-    action myTunnel_forward(egressSpec_t port) {
-        standard_metadata.egress_spec = port;
-        tunnelCount.count();
-    }
-
-    action myTunnel_egress(egressSpec_t port) {
-        standard_metadata.egress_spec = port;
-        hdr.myTunnel.setInvalid();
-        tunnelCount.count();
-    }
-
     table myTunnel_exact {
         key = {
             hdr.myTunnel.dst_id: exact;
@@ -158,12 +162,10 @@ control MyIngress(inout headers hdr,
             drop;
         }
         size = 1024;
-        counters = tunnelCount;
         default_action = drop();
     }
 
     apply {
-
         if (hdr.ipv4.isValid() && !hdr.myTunnel.isValid()) {
             // Process only non-tunneled IPv4 packets.
             ipv4_lpm.apply();

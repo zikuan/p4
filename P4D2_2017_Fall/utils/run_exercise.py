@@ -325,11 +325,11 @@ class ExerciseRunner:
                 - A mininet instance is stored as self.net and self.net.start() has
                   been called.
         """
-        self.logger("Starting mininet CLI")
         for s in self.net.switches:
             s.describe()
         for h in self.net.hosts:
             h.describe()
+        self.logger("Starting mininet CLI")
         # Generate a message that will be printed by the Mininet CLI to make
         # interacting with the simple switch a little easier.
         print('')

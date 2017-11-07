@@ -98,7 +98,7 @@ Your job will be to do the following:
 6. **TODO:** Update the deparser to emit the `ethernet`, then `myTunnel`, then `ipv4` headers. Remember that the deparser will only emit a header if it is valid. A header's implicit validity bit is set by the parser upon extraction. So there is no need to check header validity here.
 7. **TODO:** Add static rules for your newly defined table so that the switches will forward correctly for each possible value of `dst_id`. See the diagram below for the topology's port configuration as well as how we will assign IDs to hosts. For this step you will need to add your forwarding rules to the `sX-commands.txt` files.
 
-![topology](./topo.pdf)
+![topology](./topo.png)
 
 ## Step 3: Run your solution
 
