@@ -117,13 +117,13 @@ report the error emitted from the compiler and stop.
 
 2. `load_balance.p4` compiles but does not support the control plane
 rules in the `sX-commands.txt` files that `make` tries to install
-using the BMv2 CLI.  In this case, `make` will report these errors
-to `stderr`.  Use these error messages to fix your `load_balance.p4`
+using the BMv2 CLI.  In this case, `make` will log the CLI tool output
+in the `logs` directory. Use these error messages to fix your `load_balance.p4`
 implementation.
 
 3. `load_balance.p4` compiles, and the control plane rules are
 installed, but the switch does not process packets in the desired way.
-The `build/logs/<switch-name>.log` files contain trace messages
+The `/tmp/p4s.<switch-name>.log` files contain trace messages
 describing how each switch processes each packet.  The output is
 detailed and can help pinpoint logic errors in your implementation.
 

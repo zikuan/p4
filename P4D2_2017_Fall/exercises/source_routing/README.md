@@ -123,7 +123,7 @@ There are several ways that problems might manifest:
    Do you have another instance of mininet running? Did the previous
    run of mininet crash?  if yes, check "Cleaning up Mininet" bellow.
 3. `source_routing.p4` compiles but the switch does not process
-   packets in the desired way. The `build/logs/<switch-name>.log`
+   packets in the desired way. The `/tmp/p4s.<switch-name>.log`
    files contain trace messages describing how each switch processes
    each packet. The output is detailed and can help pinpoint logic
    errors in your implementation.  The

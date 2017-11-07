@@ -140,12 +140,12 @@ report the error emitted from the compiler and halt.
 2. `basic_tunnel.p4` might compile but fail to support the control plane
 rules in the `s1-commands.txt` through `s3-command.txt` files that
 `make run` tries to install using the Bmv2 CLI. In this case, `make run`
-will report these errors to `stderr`. Use these error messages to fix
-your `basic_tunnel.p4` implementation or forwarding rules.
+will log the CLI tool output in the `logs` directory. Use these error 
+messages to fix your `basic_tunnel.p4` implementation or forwarding rules.
 
 3. `basic_tunnel.p4` might compile, and the control plane rules might be
 installed, but the switch might not process packets in the desired
-way. The `build/logs/<switch-name>.log` files contain detailed logs
+way. The `/tmp/p4s.<switch-name>.log` files contain detailed logs
 that describing how each switch processes each packet. The output is
 detailed and can help pinpoint logic errors in your implementation.
 
