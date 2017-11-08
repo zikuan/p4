@@ -50,6 +50,8 @@ switch in Mininet to test its behavior.
    capture packets at `h2`, we should see high queue size for that
    link.
 
+![Setup](setup.png)
+
 3. You should now see a Mininet command prompt. Open four terminals
    for `h1`, `h11`, `h2`, `h22`, respectively:
    ```bash

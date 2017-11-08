@@ -41,11 +41,14 @@ network in Mininet to test its behavior.
      (`10.0.<Switchid>.<hostID>`).
    * The control plane programs the P4 tables in each switch based on
      `sx-commands.txt`
+
 2. We want to send a low rate traffic from `h1` to `h2` and a high
 rate iperf traffic from `h11` to `h22`.  The link between `s1` and
 `s2` is common between the flows and is a bottleneck because we
 reduced its bandwidth to 512kbps in topology.json.  Therefore, if we
 capture packets at `h2`, we should see the right ECN value.
+
+![Setup](setup.png)
 
 3. You should now see a Mininet command prompt. Open four terminals
 for `h1`, `h11`, `h2`, `h22`, respectively:
