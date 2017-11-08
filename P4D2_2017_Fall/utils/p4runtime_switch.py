@@ -21,18 +21,8 @@ from mininet.node import Switch
 from mininet.moduledeps import pathCheck
 from mininet.log import info, error, debug
 
-# this path is needed to import p4_mininet.py from the bmv2 repo
-sys.path.append('/home/vagrant/behavioral-model/mininet')
-from p4_mininet import P4Switch
-
-SWITCH_START_TIMEOUT = 10 # seconds
-
-import psutil
-def check_listening_on_port(port):
-    for c in psutil.net_connections(kind='inet'):
-        if c.status == 'LISTEN' and c.laddr[1] == port:
-            return True
-    return False
+from p4_mininet import P4Switch, SWITCH_START_TIMEOUT
+from netstat import check_listening_on_port
 
 class P4RuntimeSwitch(P4Switch):
     "BMv2 switch with gRPC support"

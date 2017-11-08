@@ -22,8 +22,6 @@
 import os, sys, json, subprocess, re, argparse
 from time import sleep
 
-# this path is needed to import p4_mininet.py from the bmv2 repo
-sys.path.append('/home/vagrant/behavioral-model/mininet')
 from p4_mininet import P4Switch, P4Host
 
 from mininet.net import Mininet
