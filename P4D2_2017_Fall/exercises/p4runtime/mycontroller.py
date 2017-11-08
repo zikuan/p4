@@ -43,13 +43,19 @@ def writeTunnelRules(p4info_helper, ingress_sw, egress_sw, tunnel_id,
 
     # 2) Tunnel Transit Rule
     # The rule will need to be added to the myTunnel_exact table and match on
-    # the tunnel ID (hdr.myTunnel.dst_id). For our simple topology, transit
-    # traffic will need to be forwarded on the using the myTunnel_forward action
-    # on the SWITCH_TO_SWITCH_PORT (port 2).
+    # the tunnel ID (hdr.myTunnel.dst_id). Traffic will need to be forwarded
+    # using the myTunnel_forward action on the port connected to the next switch.
     #
-    # We will only need on transit rule on the ingress switch because we are
+    # For our simple topology, switch 1 and switch 2 are connected using a
+    # link attached to port 2 on both switches. We have defined a variable at
+    # the top of the file, SWITCH_TO_SWITCH_PORT, that you can use as the output
+    # port for this action.
+    #
+    # We will only need a transit rule on the ingress switch because we are
     # using a simple topology. In general, you'll need on transit rule for
-    # each switch in the path (except the last one).
+    # each switch in the path (except the last switch, which has the egress rule),
+    # and you will need to select the port dynamically for each switch based on
+    # your topology.
 
     # TODO build the transit rule
     # TODO install the transit rule on the ingress switch

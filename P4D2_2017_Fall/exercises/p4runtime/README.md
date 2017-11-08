@@ -5,7 +5,7 @@
 In this exercise, we will be using P4 Runtime to send flow entries to the 
 switch instead of using the switch's CLI. We will be building on the same P4
 program that you used in the [basic_tunnel](../basic_tunnel) exercise. The
-P4 program has be renamed to `advanced_tunnel.py` and has been augmented
+P4 program has been renamed to `advanced_tunnel.py` and has been augmented
 with two counters (`ingressTunnelCounter`, `egressTunnelCounter`) and
 two new actions (`myTunnel_ingress`, `myTunnel_egress`).
  
@@ -20,7 +20,7 @@ necessary to tunnel traffic between host 1 and 2.
 ## Step 1: Run the (incomplete) starter code
 
 The starter code for this assignment is in a file called `mycontroller.py`,
-and it will install only some of the rules that you need tunnel traffic between
+and it will install only some of the rules that you need to tunnel traffic between
 two hosts.
 
 Let's first compile the new P4 program, start the network, use `mycontroller.py`

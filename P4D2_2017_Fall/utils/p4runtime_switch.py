@@ -25,6 +25,14 @@ from mininet.log import info, error, debug
 sys.path.append('/home/vagrant/behavioral-model/mininet')
 from p4_mininet import P4Switch
 
+SWITCH_START_TIMEOUT = 10 # seconds
+
+import psutil
+def check_listening_on_port(port):
+    for c in psutil.net_connections(kind='inet'):
+        if c.status == 'LISTEN' and c.laddr[1] == port:
+            return True
+    return False
 
 class P4RuntimeSwitch(P4Switch):
     "BMv2 switch with gRPC support"
@@ -59,6 +67,10 @@ class P4RuntimeSwitch(P4Switch):
             self.grpc_port = P4RuntimeSwitch.next_grpc_port
             P4RuntimeSwitch.next_grpc_port += 1
 
+        if check_listening_on_port(self.grpc_port):
+            error('%s cannot bind port %d because it is bound by another process\n' % (self.name, self.grpc_port))
+            exit(1)
+
         self.verbose = verbose
         logfile = "/tmp/p4s.{}.log".format(self.name)
         self.output = open(logfile, 'w')
@@ -75,17 +87,12 @@ class P4RuntimeSwitch(P4Switch):
 
 
     def check_switch_started(self, pid):
-        while True:
+        for _ in range(SWITCH_START_TIMEOUT * 2):
             if not os.path.exists(os.path.join("/proc", str(pid))):
                 return False
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.settimeout(0.5)
-            result = sock.connect_ex(("localhost", self.grpc_port))
-            if result == 0:
-                # TODO It seems like sometimes BMv2 can hang if multiple instances start up too quickly;
-                #      this sleep might also do nothing...
-                sleep(0.5)
+            if check_listening_on_port(self.grpc_port):
                 return True
+            sleep(0.5)
 
     def start(self, controllers):
         info("Starting P4 switch {}.\n".format(self.name))
