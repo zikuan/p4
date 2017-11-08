@@ -3,11 +3,11 @@
 ## Introduction
 
 In this exercise, we will be using P4 Runtime to send flow entries to the 
-switch, instead of using the switch's CLI. We will be using the same P4
-program that you used in the previous in the basic_tunnel exercise. The
+switch instead of using the switch's CLI. We will be building on the same P4
+program that you used in the [basic_tunnel](../basic_tunnel) exercise. The
 P4 program has be renamed to `advanced_tunnel.py` and has been augmented
-with a counter, `tunnelCount`, and two new actions, `myTunnel_ingress`
-and `myTunnel_egress`.
+with two counters (`ingressTunnelCounter`, `egressTunnelCounter`) and
+two new actions (`myTunnel_ingress`, `myTunnel_egress`).
  
 You will use the starter program, `mycontroller.py`, and a few helper
 libraries in the `p4runtime_lib` directory to create the table entries
@@ -19,12 +19,12 @@ necessary to tunnel traffic between host 1 and 2.
 
 ## Step 1: Run the (incomplete) starter code
 
-The starter code for this assignment is in a file called `mycontroller.py` 
+The starter code for this assignment is in a file called `mycontroller.py`,
 and it will install only some of the rules that you need tunnel traffic between
 two hosts.
 
 Let's first compile the new P4 program, start the network, use `mycontroller.py`
-to install a few rules, and look at the tunnel ingress counter to see that things
+to install a few rules, and look at the `ingressTunnelCounter` to see that things
 are working as expected.
 
 1. In your shell, run:
@@ -32,18 +32,17 @@ are working as expected.
    make
    ```
    This will:
-   * compile `advanced_tunnel.p4`, and
+   * compile `advanced_tunnel.p4`,
    * start a Mininet instance with three switches (`s1`, `s2`, `s3`)
-     configured in a triangle, each connected to one host (`h1`, `h2`,
-     and `h3`).
-   * The hosts are assigned IPs of `10.0.1.1`, `10.0.2.2`, etc.
+     configured in a triangle, each connected to one host (`h1`, `h2`, `h3`), and
+   * assign IPs of `10.0.1.1`, `10.0.2.2`, `10.0.3.3` to the respective hosts.
 
 2. You should now see a Mininet command prompt. Start a ping between h1 and h2:
    ```bash
    mininet> h1 ping h2
    ```
    Because there are no rules on the switches, you should **not** receive any
-   replies yet.
+   replies yet. You should leave the ping running in this shell.
    
 3. Open another shell and run the starter code:
    ```bash
@@ -64,6 +63,25 @@ are working as expected.
 Each switch is currently mapping traffic into tunnels based on the destination IP
 address. Your job is to write the rules that forward the traffic between the switches
 based on the tunnel ID.
+
+### Potential Issues
+
+If you see the following error message when running `mycontroller.py`, then
+the gRPC server is not running on one or more switches.
+
+```
+p4@p4:~/tutorials/P4D2_2017_Fall/exercises/p4runtime$ ./mycontroller.py
+...
+grpc._channel._Rendezvous: <_Rendezvous of RPC that terminated with (StatusCode.UNAVAILABLE, Connect Failed)>
+```
+
+You can check to see which of gRPC ports are listening on the machine by running:
+```bash
+sudo netstat -lpnt
+```
+
+The easiest solution is to enter `Ctrl-D` or `exit` in the `mininet>` prompt,
+and re-run `make`.
 
 ### A note about the control plane
 
@@ -96,6 +114,26 @@ that will match on tunnel ID and forward packets to the next hop.
 
 ![topology](../basic_tunnel/topo.png)
 
+In this exercise, you will be interacting with some of the classes and methods in
+the `p4runtime_lib` directory. Here is a summary of each of the files in the directory:
+- `helper.py`
+  - Contains the `P4InfoHelper` class which is used to parse the `p4info` files.
+  - Provides translation methods from entity name to and from ID number.
+  - Builds P4 program-dependendent sections of P4 Runtime table entries.
+- `switch.py`
+  - Contains the `SwitchConnection` class which grabs the gRPC client stub, and
+    establishes connections to the switches.
+  - Provides helper methods that construct the P4 Runtime protocol buffer messages
+    and makes the P4 Runtime gRPC service calls.
+- `bmv2.py`
+  - Contains `Bmv2SwitchConnection` which extends `SwitchConnections` and provides
+    the BMv2-specific device payload to load the P4 program.
+- `convert.py`
+  - Provides convenience methods to encode and decode from friendly strings and
+    numbers to the byte strings required for the protocol buffer messages.
+  - Used by `helper.py`
+
+
 ## Step 3: Run your solution
 
 Follow the instructions from Step 1. If your Mininet network is still running,
@@ -121,6 +159,10 @@ need to change it for a more realistic network?
 
 - What is the TTL in the ICMP replies? Why is it the value that it is?
 Hint: The default TTL is 64 for packets sent by the hosts.
+
+If you are interested, you can find the protocol buffer and gRPC definitions here:
+- [P4 Runtime](https://github.com/p4lang/PI/blob/master/proto/p4/p4runtime.proto)
+- [P4 Info](https://github.com/p4lang/PI/blob/master/proto/p4/config/p4info.proto)
 
 #### Cleaning up Mininet
 

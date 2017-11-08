@@ -3,7 +3,10 @@
 
 Vagrant.configure(2) do |config|
   config.vm.box = "bento/ubuntu-16.04"
+  config.vm.define "p4-tutorial" do |tutorial|
+  end
   config.vm.provider "virtualbox" do |vb|
+    vb.name = "P4 Tutorial" + Time.now.strftime(" %Y-%m-%d")
     vb.gui = true
     vb.memory = 2048
     vb.cpus = 2

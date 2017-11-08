@@ -8,11 +8,13 @@
 # Compiled JSON
 *.json
 !*p4app.json
+!topology.json
 
 *.pcap
 
 # Extracted solutions
 solution*/
+!solution/
 
 # Build folders
 build*/
