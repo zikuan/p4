@@ -206,6 +206,7 @@ control MyEgress(inout headers hdr,
         - Set hdr.swtraces[0].swid to the id paremeter
         - Set hdr.swtraces[0].qdepth to (qdepth_t)standard_metadata.deq_qdepth
         - Incremement hdr.ipv4.ihl by 2
+        - Increment hdr.ipv4.totalLen by 8
         - Incrememtn hdr.ipv4_option.optionLength by 8
         */
     }
