@@ -126,10 +126,12 @@ cd .vim
 mkdir ftdetect
 mkdir syntax
 echo "au BufRead,BufNewFile *.p4      set filetype=p4" >> ftdetect/p4.vim
+echo "set bg=dark" >> /home/p4/.vimrc
 cp /home/vagrant/p4.vim syntax/p4.vim
 cd /home/vagrant
 sudo mv .vim /home/p4/.vim
 sudo chown -R p4:p4 /home/p4/.vim
+sudo chown p4:p4 /home/p4/.vimrc
 
 # Adding Desktop icons
 DESKTOP=/home/${USER}/Desktop
