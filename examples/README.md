@@ -24,7 +24,7 @@ how to run a quick demonstration.
 ## Obtaining required software
 
 To complete the exercises, you will need to clone 2 p4lang Github repositories
-and install their dependencies. To clonde the repositories:
+and install their dependencies. To clone the repositories:
 
 - `git clone https://github.com/p4lang/behavioral-model.git bmv2`
 - `git clone https://github.com/p4lang/p4c-bm.git p4c-bmv2`
