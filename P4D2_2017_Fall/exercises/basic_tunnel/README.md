@@ -50,7 +50,7 @@ server. In `h2`'s xterm, start the server:
    ```
    The packet should be received at `h2`. If you examine the received
    packet you should see that is consists of an Ethernet header, an IP
-   header, and the message. If you change the destination IP address
+   header, a TCP header, and the message. If you change the destination IP address
    (e.g. try to send to `10.0.3.3`) then the message should not be 
    received by h2.
 5. Type `exit` or `Ctrl-D` to leave each xterm and the Mininet command line.
@@ -91,7 +91,7 @@ Your job will be to do the following:
 
 1. **NOTE:** A new header type has been added called `myTunnel_t` that contains two 16-bit fields: `proto_id` and `dst_id`.
 2. **NOTE:** The `myTunnel_t` header has been added to the `headers` struct.
-2. **TODO:** Update the parser to extract either the `myTunnel` header or `ipv4` header based on the `etherType` field in the Ethernet header. The parser should also extract the `ipv4` header after the `myTunnel` header if `proto_id` == `TYPE_IPV4` (i.e. 0x0800).
+2. **TODO:** Update the parser to extract either the `myTunnel` header or `ipv4` header based on the `etherType` field in the Ethernet header. The etherType corresponding to the myTunnel header is `0x1212`. The parser should also extract the `ipv4` header after the `myTunnel` header if `proto_id` == `TYPE_IPV4` (i.e. 0x0800).
 3. **TODO:** Define a new action called `myTunnel_forward` that simply sets the egress port (i.e. `egress_spec` field of the `standard_metadata` bus) to the port number provided by the control plane.
 4. **TODO:** Define a new table called `myTunnel_exact` that perfoms an exact match on the `dst_id` field of the `myTunnel` header. This table should invoke either the `myTunnel_forward` action if the there is a match in the table and it should invoke the `drop` action otherwise.
 5. **TODO:** Update the `apply` statement in the `MyIngress` control block to apply your newly defined `myTunnel_exact` table if the `myTunnel` header is valid. Otherwise, invoke the `ipv4_lpm` table if the `ipv4` header is valid.
