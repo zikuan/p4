@@ -74,7 +74,7 @@ switch in Mininet to test its behavior.
    The message "P4 is cool" should be received in `h2`'s xterm,
 6. In `h11`'s xterm, start iperf client sending for 15 seconds
    ```bash
-   h11 iperf -c 10.0.2.22 -t 15 -u
+   iperf -c 10.0.2.22 -t 15 -u
    ```
 7. At `h2`, the MRI header has no hop info (`count=0`)
 8. type `exit` to close each xterm window
@@ -155,7 +155,7 @@ populate `ethernet_t`, `ipv4_t`, `ipv4_option_t`, `mri_t`, and
 ## Step 3: Run your solution
 
 Follow the instructions from Step 1.  This time, when your message
- from `h1` is delivered to `h2`, you should see the seqeunce of
+ from `h1` is delivered to `h2`, you should see the sequence of
  switches through which the packet traveled plus the corresponding
  queue depths.  The expected output will look like the following,
  which shows the MRI header, with a `count` of 2, and switch ids

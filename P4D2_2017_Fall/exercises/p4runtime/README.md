@@ -119,7 +119,7 @@ the `p4runtime_lib` directory. Here is a summary of each of the files in the dir
 - `helper.py`
   - Contains the `P4InfoHelper` class which is used to parse the `p4info` files.
   - Provides translation methods from entity name to and from ID number.
-  - Builds P4 program-dependendent sections of P4 Runtime table entries.
+  - Builds P4 program-dependent sections of P4 Runtime table entries.
 - `switch.py`
   - Contains the `SwitchConnection` class which grabs the gRPC client stub, and
     establishes connections to the switches.

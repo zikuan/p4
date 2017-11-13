@@ -87,7 +87,7 @@ A complete `source_routing.p4` will contain the following components:
 	1. Set the egress port for the next hop. 
 	2. remove the first entry of srcRoutes
 5. A control with an `apply` block that:
-    1. checks the existance of source routes.
+    1. checks the existence of source routes.
     2. **TODO:** if statement to change etherent.etherType if it is the last hop
     3. **TODO:** call srcRoute_nhop action
 6. A deparser that selects the order in which fields inserted into the outgoing

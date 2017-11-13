@@ -125,7 +125,7 @@ parser MyParser(packet_in packet,
         * - Set meta.parser_metadata.remaining to hdr.mri.count
         * - Select on the value of meta.parser_metadata.remaining
         *   - If the value is equal to 0, accept.
-        *   - Otherwise, transition to parse_swid.
+        *   - Otherwise, transition to parse_swtrace.
         */
         transition accept;
     }
@@ -203,11 +203,11 @@ control MyEgress(inout headers hdr,
         * TODO: add logic to:
         - Increment hdr.mri.count by 1
         - Add a new swtrace header by calling push_front(1) on hdr.swtraces.
-        - Set hdr.swtraces[0].swid to the id paremeter
+        - Set hdr.swtraces[0].swid to the id parameter
         - Set hdr.swtraces[0].qdepth to (qdepth_t)standard_metadata.deq_qdepth
-        - Incremement hdr.ipv4.ihl by 2
+        - Increment hdr.ipv4.ihl by 2
         - Increment hdr.ipv4.totalLen by 8
-        - Incrememtn hdr.ipv4_option.optionLength by 8
+        - Increment hdr.ipv4_option.optionLength by 8
         */
     }
 

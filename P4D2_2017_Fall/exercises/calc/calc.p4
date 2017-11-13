@@ -45,7 +45,7 @@
  */
 
 /*
- * Standard ethernet header 
+ * Standard Ethernet header 
  */
 header ethernet_t {
     bit<48> dstAddr;
@@ -55,7 +55,7 @@ header ethernet_t {
 
 /*
  * This is a custom protocol header for the calculator. We'll use 
- * ethertype 0x1234 for is (see parser)
+ * etherType 0x1234 for it (see parser)
  */
 const bit<16> P4CALC_ETYPE = 0x1234;
 const bit<8>  P4CALC_P     = 0x50;   // 'P'
@@ -76,7 +76,7 @@ header p4calc_t {
 }
 
 /*
- * All headers, used in the program needs to be assembed into a single struct.
+ * All headers, used in the program needs to be assembled into a single struct.
  * We only need to declare the type, but there is no need to instantiate it,
  * because it is done "by the architecture", i.e. outside of P4 functions
  */
@@ -86,7 +86,7 @@ struct headers {
 }
 
 /*
- * All metadata, globally used in the program, also  needs to be assembed 
+ * All metadata, globally used in the program, also  needs to be assembled 
  * into a single struct. As in the case of the headers, we only need to 
  * declare the type, but there is no need to instantiate it,
  * because it is done "by the architecture", i.e. outside of P4 functions

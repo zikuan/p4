@@ -3,7 +3,7 @@
 ## Introduction
 
 The objective of this tutorial is to extend basic L3 forwarding with
-an implementation of Explict Congestion Notification (ECN).
+an implementation of Explicit Congestion Notification (ECN).
 
 ECN allows end-to-end notification of network congestion without
 dropping packets.  If an end-host supports ECN, it puts the value of 1
@@ -110,7 +110,7 @@ A complete `ecn.p4` will contain the following components:
 6. A deparser that selects the order in which fields inserted into the outgoing
    packet.
 7. A `package` instantiation supplied with the parser, control,
-  checksum verfiication and recomputation and deparser.
+  checksum verification and recomputation and deparser.
 
 ## Step 3: Run your solution
 
@@ -124,7 +124,7 @@ of `h2` to a file by running the following for `h2`
    ```bash
    ./receive.py > h2.log
    ```
-and just print the `tos` values `grep tos build/h2.log` in a separate window
+and just print the `tos` values `grep tos h2.log` in a separate window
 ```
      tos       = 0x1
      tos       = 0x1
@@ -166,7 +166,7 @@ There are several ways that problems might manifest:
 2. `ecn.p4` compiles but does not support the control plane rules in
    the `sX-commands.txt` files that `make` tries to install using
    the BMv2 CLI.  In this case, `make` will log the CLI tool output 
-   in th `logs` directory. Use these error messages to fix your `ecn.p4`
+   in the `logs` directory. Use these error messages to fix your `ecn.p4`
    implementation.
 3. `ecn.p4` compiles, and the control plane rules are installed, but
    the switch does not process packets in the desired way.  The
