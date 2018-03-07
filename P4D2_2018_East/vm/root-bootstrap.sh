@@ -8,8 +8,8 @@ sudo add-apt-repository ppa:webupd8team/atom
 
 apt-get update
 
+KERNEL=$(uname -r)
 DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
-
 apt-get install -y --no-install-recommends \
   atom \
   autoconf \
@@ -46,6 +46,7 @@ apt-get install -y --no-install-recommends \
   libreadline6-dev \
   libssl-dev \
   libtool \
+  linux-headers-$KERNEL\
   lubuntu-desktop \
   make \
   mktemp \

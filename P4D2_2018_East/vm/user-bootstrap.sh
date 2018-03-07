@@ -117,8 +117,12 @@ sudo chown -R p4:p4 /home/p4/tutorials
 
 # Emacs
 sudo cp p4_16-mode.el /usr/share/emacs/site-lisp/
-echo "(add-to-list 'auto-mode-alist '(\"\\.p4\\'\" . p4_16-mode))" | sudo tee /home/p4/.emacs
-sudo chown p4:p4 /home/p4/.emacs
+sudo mkdir /home/p4/.emacs.d/
+echo "(autoload 'p4_16-mode' \"p4_16-mode.el\" \"P4 Syntax.\" t)" > init.el
+echo "(add-to-list 'auto-mode-alist '(\"\\.p4\\'\" . p4_16-mode))" | tee -a init.el
+sudo mv init.el /home/p4/.emacs.d/
+sudo ln -s /usr/share/emacs/site-lisp/p4_16-mode.el /home/p4/.emacs.d/p4_16-mode.el
+sudo chown -R p4:p4 /home/p4/.emacs.d/
 
 # Vim
 cd /home/vagrant
@@ -175,4 +179,6 @@ EOF
 sudo mkdir -p /home/p4/Desktop
 sudo mv /home/${USER}/Desktop/* /home/p4/Desktop
 sudo chown -R p4:p4 /home/p4/Desktop/
+
+# Do this last!
 sudo reboot
