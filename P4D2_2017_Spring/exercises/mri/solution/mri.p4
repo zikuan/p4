@@ -167,6 +167,11 @@ control ingress(inout headers hdr, inout metadata meta, inout standard_metadata_
     action add_swid(switchID_t id) {    
         hdr.mri.count = hdr.mri.count + 1;
         hdr.swids.push_front(1);
+        // According to the P4_16 spec, pushed elements are invalid, so we need
+        // to call setValid(). Older bmv2 versions would mark the new header(s)
+        // valid automatically (P4_14 behavior), but starting with version 1.11,
+        // bmv2 conforms with the P4_16 spec.
+        hdr.swids[0].setValid();
         hdr.swids[0].swid = id;
 
         hdr.ipv4.ihl = hdr.ipv4.ihl + 1;

@@ -193,6 +193,11 @@ control MyEgress(inout headers hdr,
     action add_swtrace(switchID_t swid) { 
         hdr.mri.count = hdr.mri.count + 1;
         hdr.swtraces.push_front(1);
+        // According to the P4_16 spec, pushed elements are invalid, so we need
+        // to call setValid(). Older bmv2 versions would mark the new header(s)
+        // valid automatically (P4_14 behavior), but starting with version 1.11,
+        // bmv2 conforms with the P4_16 spec.
+        hdr.swtraces[0].setValid();
         hdr.swtraces[0].swid = swid;
         hdr.swtraces[0].qdepth = (qdepth_t)standard_metadata.deq_qdepth;
 
