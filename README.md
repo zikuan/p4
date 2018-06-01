@@ -3,7 +3,7 @@
 ## Introduction
 
 Welcome to the P4 Tutorial! We've prepared a set of exercises to help
-you get started with P4 programming, organized into four modules:
+you get started with P4 programming, organized into several modules:
 
 1. Introduction and Language Basics
 * [Basic Forwarding](./exercises/basic)
@@ -25,7 +25,7 @@ you get started with P4 programming, organized into four modules:
 
 ## Obtaining required software
 
-If you are starting this tutorial at the Fall 2017 P4 Developer Day,
+If you are starting this tutorial at the Spring 2018 P4 Developer Day,
 then we've already provided you with a virtual machine that has all of
 the required software installed.
 
