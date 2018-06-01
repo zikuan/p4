@@ -9,8 +9,8 @@ you get started with P4 programming, organized into several modules:
 * [Basic Forwarding](./exercises/basic)
 * [Basic Tunneling](./exercises/basic_tunnel)
 
-2. P4 Runtime and the Control Plane
-* [P4 Runtime](./exercises/p4runtime)
+2. P4Runtime and the Control Plane
+* [P4Runtime](./exercises/p4runtime)
 
 3. Monitoring and Debugging
 * [Explicit Congestion Notification](./exercises/ecn)

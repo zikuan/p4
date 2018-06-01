@@ -38,7 +38,7 @@ def configureP4Switch(**switch_args):
         switch's thrift server is using a unique port.
     """
     if "sw_path" in switch_args and 'grpc' in switch_args['sw_path']:
-        # If grpc appears in the BMv2 switch target, we assume will start P4 Runtime
+        # If grpc appears in the BMv2 switch target, we assume will start P4Runtime
         class ConfiguredP4RuntimeSwitch(P4RuntimeSwitch):
             def __init__(self, *opts, **kwargs):
                 kwargs.update(switch_args)

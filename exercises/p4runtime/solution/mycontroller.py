@@ -145,11 +145,11 @@ def printCounter(p4info_helper, sw, counter_name, index):
 
 
 def main(p4info_file_path, bmv2_file_path):
-    # Instantiate a P4 Runtime helper from the p4info file
+    # Instantiate a P4Runtime helper from the p4info file
     p4info_helper = p4runtime_lib.helper.P4InfoHelper(p4info_file_path)
 
     # Create a switch connection object for s1 and s2;
-    # this is backed by a P4 Runtime gRPC connection.
+    # this is backed by a P4Runtime gRPC connection.
     # Also, dump all P4Runtime messages sent to switch to given txt files.
     s1 = p4runtime_lib.bmv2.Bmv2SwitchConnection(
         name='s1',

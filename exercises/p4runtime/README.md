@@ -1,8 +1,8 @@
-# Implementing a Control Plane using P4 Runtime
+# Implementing a Control Plane using P4Runtime
 
 ## Introduction
 
-In this exercise, we will be using P4 Runtime to send flow entries to the 
+In this exercise, we will be using P4Runtime to send flow entries to the 
 switch instead of using the switch's CLI. We will be building on the same P4
 program that you used in the [basic_tunnel](../basic_tunnel) exercise. The
 P4 program has been renamed to `advanced_tunnel.py` and has been augmented
@@ -94,14 +94,14 @@ table entries like we have in the previous exercises.
 switch pipeline and control plane. This interface is defined in the
 `advanced_tunnel.p4info` file. The table entries that you build in `mycontroller.py`
 refer to specific tables, keys, and actions by name, and we use a P4Info helper
-to convert the names into the IDs that are required for P4 Runtime. Any changes
+to convert the names into the IDs that are required for P4Runtime. Any changes
 in the P4 program that add or rename tables, keys, or actions will need to be
 reflected in your table entries.
 
 ## Step 2: Implement Tunnel Forwarding
 
 The `mycontroller.py` file is a basic controller plane that does the following:
-1. Establishes a gRPC connection to the switches for the P4 Runtime service.
+1. Establishes a gRPC connection to the switches for the P4Runtime service.
 2. Pushes the P4 program to each switch.
 3. Writes tunnel ingress and tunnel egress rules for two tunnels between h1 and h2.
 4. Reads tunnel ingress and egress counters every 2 seconds.
@@ -119,12 +119,12 @@ the `p4runtime_lib` directory. Here is a summary of each of the files in the dir
 - `helper.py`
   - Contains the `P4InfoHelper` class which is used to parse the `p4info` files.
   - Provides translation methods from entity name to and from ID number.
-  - Builds P4 program-dependent sections of P4 Runtime table entries.
+  - Builds P4 program-dependent sections of P4Runtime table entries.
 - `switch.py`
   - Contains the `SwitchConnection` class which grabs the gRPC client stub, and
     establishes connections to the switches.
-  - Provides helper methods that construct the P4 Runtime protocol buffer messages
-    and makes the P4 Runtime gRPC service calls.
+  - Provides helper methods that construct the P4Runtime protocol buffer messages
+    and makes the P4Runtime gRPC service calls.
 - `bmv2.py`
   - Contains `Bmv2SwitchConnection` which extends `SwitchConnections` and provides
     the BMv2-specific device payload to load the P4 program.
@@ -161,8 +161,8 @@ need to change it for a more realistic network?
 Hint: The default TTL is 64 for packets sent by the hosts.
 
 If you are interested, you can find the protocol buffer and gRPC definitions here:
-- [P4 Runtime](https://github.com/p4lang/PI/blob/master/proto/p4/p4runtime.proto)
-- [P4 Info](https://github.com/p4lang/PI/blob/master/proto/p4/config/p4info.proto)
+- [P4Runtime](https://github.com/p4lang/PI/blob/master/proto/p4/p4runtime.proto)
+- [P4Info](https://github.com/p4lang/PI/blob/master/proto/p4/config/p4info.proto)
 
 #### Cleaning up Mininet
 
