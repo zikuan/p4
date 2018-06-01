@@ -37,6 +37,7 @@ class P4RuntimeSwitch(P4Switch):
                  verbose = False,
                  device_id = None,
                  enable_debugger = False,
+                 log_file = None,
                  **kwargs):
         Switch.__init__(self, name, **kwargs)
         assert (sw_path)
@@ -75,6 +76,10 @@ class P4RuntimeSwitch(P4Switch):
         self.pcap_dump = pcap_dump
         self.enable_debugger = enable_debugger
         self.log_console = log_console
+        if log_file is not None:
+            self.log_file = log_file
+        else:
+            self.log_file = "/tmp/p4s.{}.log".format(self.name)
         if device_id is not None:
             self.device_id = device_id
             P4Switch.device_id = max(P4Switch.device_id, device_id)
@@ -99,7 +104,7 @@ class P4RuntimeSwitch(P4Switch):
             if not intf.IP():
                 args.extend(['-i', str(port) + "@" + intf.name])
         if self.pcap_dump:
-            args.append("--pcap")
+            args.append("--pcap %s" % self.pcap_dump)
         if self.nanomsg:
             args.extend(['--nanolog', self.nanomsg])
         args.extend(['--device-id', str(self.device_id)])
@@ -119,10 +124,10 @@ class P4RuntimeSwitch(P4Switch):
         cmd = ' '.join(args)
         info(cmd + "\n")
 
-        logfile = "/tmp/p4s.{}.log".format(self.name)
+
         pid = None
         with tempfile.NamedTemporaryFile() as f:
-            self.cmd(cmd + ' >' + logfile + ' 2>&1 & echo $! >> ' + f.name)
+            self.cmd(cmd + ' >' + self.log_file + ' 2>&1 & echo $! >> ' + f.name)
             pid = int(f.read())
         debug("P4 switch {} PID is {}.\n".format(self.name, pid))
         if not self.check_switch_started(pid):

@@ -357,7 +357,7 @@ class ExerciseRunner:
         print('Welcome to the BMV2 Mininet CLI!')
         print('======================================================================')
         print('Your P4 program is installed into the BMV2 software switch')
-        print('and your initial configuration is loaded. You can interact')
+        print('and your initial runtime configuration is loaded. You can interact')
         print('with the network using the mininet CLI below.')
         print('')
         if self.switch_json:
@@ -371,6 +371,11 @@ class ExerciseRunner:
         print('To view the switch output pcap, check the pcap files in %s:' % self.pcap_dir)
         print(' for example run:  sudo tcpdump -xxx -r s1-eth1.pcap')
         print('')
+        if 'grpc' in self.bmv2_exe:
+            print('To view the P4Runtime requests sent to the switch, check the')
+            print('corresponding txt file in %s:' % self.log_dir)
+            print(' for example run:  cat %s/s1-p4runtime-requests.txt' % self.log_dir)
+            print('')
 
         CLI(self.net)
 
