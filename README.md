@@ -16,13 +16,16 @@ you get started with P4 programming, organized into several modules:
 * [Explicit Congestion Notification](./exercises/ecn)
 * [Multi-Hop Route Inspection](./exercises/mri)
 
-4. Advanced Data Structures
+4. Advanced Behavior
 * [Source Routing](./exercises/source_routing)
 * [Calculator](./exercises/calc)
-
-5. Dynamic Behavior
 * [Load Balancing](./exercises/load_balance)
 
+## Presentation 
+
+The slides are available [online](http://bit.ly/p4d2-2018-spring) and
+in the P4_tutorial.pdf in the tutorial directory.
+        
 ## Obtaining required software
 
 If you are starting this tutorial at the Spring 2018 P4 Developer Day,

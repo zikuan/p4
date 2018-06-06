@@ -210,22 +210,26 @@ got a packet
 There are several ways that problems might manifest:
 
 1. `mri.p4` fails to compile. In this case, `make` will report the
-error emitted from the compiler and stop.
+   error emitted from the compiler and stop.
+
 2. `mri.p4` compiles but does not support the control plane rules in
-the `sX-runtime.json` files that `make` tries to install using the BMv2 CLI.
-In this case, `make` will log the CLI tool output in the `logs` directory.
-Use these error messages to fix your `mri.p4` implementation.
+   the `sX-runtime.json` files that `make` tries to install using a
+   Python controller. In this case, `make` will log the controller
+   output in the `logs` directory.  Use these error messages to fix
+   your `mri.p4` implementation.
+
 3. `mri.p4` compiles, and the control plane rules are installed, but
-the switch does not process packets in the desired way. The
-`/tmp/p4s.<switch-name>.log` files contain trace messages describing
-how each switch processes each packet. The output is detailed and can
-help pinpoint logic errors in your implementation.  The
-`build/<switch-name>-<interface-name>.pcap` also contains the pcap of
-packets on each interface. Use `tcpdump -r <filename> -xxx` to print
-the hexdump of the packets.
+   the switch does not process packets in the desired way. The
+   `/tmp/p4s.<switch-name>.log` files contain trace messages
+   describing how each switch processes each packet. The output is
+   detailed and can help pinpoint logic errors in your implementation.
+   The `build/<switch-name>-<interface-name>.pcap` also contains the
+   pcap of packets on each interface. Use `tcpdump -r <filename> -xxx`
+   to print the hexdump of the packets.
+
 4. `mri.p4` compiles and all rules are installed. Packets go through
-and the logs show that the queue length is always 0.  Then either
-reduce the link bandwidth in `topology.json`.
+    and the logs show that the queue length is always 0.  Then either
+    reduce the link bandwidth in `topology.json`.
 
 #### Cleaning up Mininet
 
@@ -241,4 +245,3 @@ make stop
 
 Congratulations, your implementation works! Move on to [Source
 Routing](../source_routing).
-

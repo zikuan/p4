@@ -4,10 +4,10 @@ In this exercise, you will implement a form of load balancing based on
 a simple version of Equal-Cost Multipath Forwarding. The switch you
 will implement will use two tables to forward packets to one of two
 destination hosts at random. The first table will use a hash function
-(applied to a 5-tuple consisting of the source and destination 
-IP addresses, IP protocol, and source and destination TCP ports) 
-to select one of two hosts. The second table will use the
-computed hash value to forward the packet to the selected host.
+(applied to a 5-tuple consisting of the source and destination IP
+addresses, IP protocol, and source and destination TCP ports) to
+select one of two hosts. The second table will use the computed hash
+value to forward the packet to the selected host.
 
 > **Spoiler alert:** There is a reference solution in the `solution`
 > sub-directory. Feel free to compare your implementation to the
@@ -63,16 +63,9 @@ control plane.  When a rule matches a packet, its action is invoked
 with parameters supplied by the control plane as part of the rule.
 
 In this exercise, the control plane logic has already been
-implemented.  As part of bringing up the Mininet instance, the
-`make` script will install packet-processing rules in the tables of
-each switch.  These are defined in the `s1-commands.txt` file.
-
-**Important:** A P4 program also defines the interface between the
-switch pipeline and control plane. The `s1-commands.txt` file contains
-a list of commands for the BMv2 switch API. These commands refer to
-specific tables, keys, and actions by name, and any changes in the P4
-program that add or rename tables, keys, or actions will need to be
-reflected in these command files.
+implemented.  As part of bringing up the Mininet instance, the `make`
+script will install packet-processing rules in the tables of each
+switch. These are defined in the `sX-runtime.json` files.
 
 ## Step 2: Implement Load Balancing
 
@@ -105,9 +98,6 @@ Follow the instructions from Step 1.  This time, your message from
 `h1` should be delivered to `h2` or `h3`. If you send several
 messages, some should be received by each server.
 
-### Food for thought
-
-
 ### Troubleshooting
 
 There are several ways that problems might manifest:
@@ -116,10 +106,10 @@ There are several ways that problems might manifest:
 report the error emitted from the compiler and stop.
 
 2. `load_balance.p4` compiles but does not support the control plane
-rules in the `sX-commands.txt` files that `make` tries to install
-using the BMv2 CLI.  In this case, `make` will log the CLI tool output
-in the `logs` directory. Use these error messages to fix your `load_balance.p4`
-implementation.
+rules in the `sX-runtime.json` files that `make` tries to install
+using the Python controller.  In this case, `make` will log the
+controller output in the `logs` directory. Use the error messages to
+fix your `load_balance.p4` implementation.
 
 3. `load_balance.p4` compiles, and the control plane rules are
 installed, but the switch does not process packets in the desired way.
@@ -139,4 +129,4 @@ mn -c
 
 ## Next Steps
 
-Congratulations, your implementation works! 
+Congratulations, your implementation works and you have finished the tutorial!

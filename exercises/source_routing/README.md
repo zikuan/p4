@@ -13,8 +13,8 @@ to the specified port number.
 Your switch must parse the source routing stack. Each item has a bos
 (bottom of stack) bit and a port number. The bos bit is 1 only for the
 last entry of stack.  Then at ingress, it should pop an entry from the
-stack and set the egress port accordingly.  Note that the last hop can
-also revert back the etherType to `TYPE_IPV4`.
+stack and set the egress port accordingly. The last hop may also
+revert back the etherType to `TYPE_IPV4`.
 
 > **Spoiler alert:** There is a reference solution in the `solution`
 > sub-directory. Feel free to compare your implementation to the
@@ -72,7 +72,7 @@ the P4 code so packets are delivered to their destination.
 ## Step 2: Implement source routing
 
 The `source_routing.p4` file contains a skeleton P4 program with key
-pieces of logic replaced by `TODO` comments.  These should guide your
+pieces of logic replaced by `TODO` comments. These should guide your
 implementation---replace each `TODO` with logic implementing the
 missing piece.
 
