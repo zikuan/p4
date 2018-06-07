@@ -25,6 +25,9 @@ you get started with P4 programming, organized into several modules:
 
 The slides are available [online](http://bit.ly/p4d2-2018-spring) and
 in the P4_tutorial.pdf in the tutorial directory.
+
+A P4 Cheat Sheet is also available [online](https://drive.google.com/file/d/1Z8woKyElFAOP6bMd8tRa_Q4SA1cd_Uva/view?usp=sharing)
+which contains various examples that you can refer to.
         
 ## Obtaining required software
 
