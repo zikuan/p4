@@ -129,4 +129,4 @@ mn -c
 
 ## Next Steps
 
-Congratulations, your implementation works and you have finished the tutorial!
+Congratulations, your implementation works! Move on to [Multi-Hop Route Inspection](../mri).

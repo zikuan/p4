@@ -190,9 +190,3 @@ these instances:
 ```bash
 make stop
 ```
-
-## Next Steps
-
-Congratulations, your implementation works!  Move on to the next
-exercise: [Multi-Hop Route Inspection](../mri), which identifies which
-link is the source of congestion.

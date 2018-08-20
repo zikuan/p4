@@ -105,8 +105,3 @@ correct result:
 2
 >
 ```
-
-## Next Steps
-
-Congratulations, your implementation works!  Move on to
-[Load Balancer](../load_balance).
