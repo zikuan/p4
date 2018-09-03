@@ -3,8 +3,8 @@
 # Print commands and exit on errors
 set -xe
 
-sudo add-apt-repository ppa:webupd8team/sublime-text-3
-sudo add-apt-repository ppa:webupd8team/atom
+DEBIAN_FRONTEND=noninteractive sudo add-apt-repository -y ppa:webupd8team/sublime-text-3
+DEBIAN_FRONTEND=noninteractive sudo add-apt-repository -y ppa:webupd8team/atom
 
 apt-get update
 
