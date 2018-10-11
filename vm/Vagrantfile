@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "fso/xenial64-desktop"
+  config.vm.box = "lasp/ubuntu16.04-desktop"
   config.vm.define "p4-tutorial" do |tutorial|
   end
   config.vm.provider "virtualbox" do |vb|
