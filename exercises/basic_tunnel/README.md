@@ -43,7 +43,7 @@ file `build/basic.p4info` after executing `make run`). Any changes in the P4
 program that add or rename tables, keys, or actions will need to be reflected
 in these `sX-runtime.json` files.
 
-## Step 2: Implement Basic Tunneling
+## Step 1: Implement Basic Tunneling
 
 The `basic_tunnel.p4` file contains an implementation of a basic IP router.  It
 also contains comments marked with `TODO` which indicate the functionality that
@@ -84,7 +84,7 @@ to hosts. For this step you will need to add your forwarding rules to the
 
 ![topology](./topo.png)
 
-## Step 3: Run your solution
+## Step 2: Run your solution
 
 1. In your shell, run: ```bash make run ``` This will:
    * compile `basic_tunnel.p4`, and
