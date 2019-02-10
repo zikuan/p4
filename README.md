@@ -48,6 +48,6 @@ software pre-installed.
 
 To install dependencies by hand, please reference the [vm](../vm) installation scripts.
 They contain the dependencies, versions, and installation procedure.
-You can run them directly on an Ubuntu 16.04 machine:
+You should be able to run them directly on an Ubuntu 16.04 machine, although note that the scripts currently assume the existence of a directory `/home/vagrant`:
 - `sudo ./root-bootstrap.sh`
 - `sudo ./user-bootstrap.sh`
