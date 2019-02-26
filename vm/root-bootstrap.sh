@@ -55,6 +55,7 @@ apt-get install -y --no-install-recommends \
   python-dev \
   python-ipaddr \
   python-pip \
+  python-psutil \
   python-scapy \
   python-setuptools \
   sublime-text-installer \
