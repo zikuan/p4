@@ -184,5 +184,5 @@ solution/my_controller.py
 ## Next Steps
 
 Congratulations, your implementation works! Move onto the next assignment
-[ecn](../ecn)!
+[mri](../mri)!
 
