@@ -46,7 +46,7 @@ are working as expected.
    
 3. Open another shell and run the starter code:
    ```bash
-   cd ~/tutorials/P4D2_2017_Fall/exercises/p4runtime
+   cd ~/tutorials/exercises/p4runtime
    ./mycontroller.py
    ```
    This will install the `advanced_tunnel.p4` program on the switches and push the
@@ -70,7 +70,7 @@ If you see the following error message when running `mycontroller.py`, then
 the gRPC server is not running on one or more switches.
 
 ```
-p4@p4:~/tutorials/P4D2_2017_Fall/exercises/p4runtime$ ./mycontroller.py
+p4@p4:~/tutorials/exercises/p4runtime$ ./mycontroller.py
 ...
 grpc._channel._Rendezvous: <_Rendezvous of RPC that terminated with (StatusCode.UNAVAILABLE, Connect Failed)>
 ```
