@@ -99,7 +99,7 @@ control MyIngress(inout headers hdr,
                   inout metadata meta,
                   inout standard_metadata_t standard_metadata) {
     action drop() {
-        mark_to_drop();
+        mark_to_drop(standard_metadata);
     }
     action set_ecmp_select(bit<16> ecmp_base, bit<32> ecmp_count) {
         hash(meta.ecmp_select,
@@ -158,7 +158,7 @@ control MyEgress(inout headers hdr,
         hdr.ethernet.srcAddr = smac;
     }
     action drop() {
-        mark_to_drop();
+        mark_to_drop(standard_metadata);
     }
     table send_frame {
         key = {

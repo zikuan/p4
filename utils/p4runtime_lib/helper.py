@@ -15,8 +15,8 @@
 import re
 
 import google.protobuf.text_format
-from p4 import p4runtime_pb2
-from p4.config import p4info_pb2
+from p4.v1 import p4runtime_pb2
+from p4.config.v1 import p4info_pb2
 
 from convert import encode
 
@@ -97,10 +97,7 @@ class P4InfoHelper(object):
         p4runtime_match = p4runtime_pb2.FieldMatch()
         p4runtime_match.field_id = p4info_match.id
         match_type = p4info_match.match_type
-        if match_type == p4info_pb2.MatchField.VALID:
-            valid = p4runtime_match.valid
-            valid.value = bool(value)
-        elif match_type == p4info_pb2.MatchField.EXACT:
+        if match_type == p4info_pb2.MatchField.EXACT:
             exact = p4runtime_match.exact
             exact.value = encode(value, bitwidth)
         elif match_type == p4info_pb2.MatchField.LPM:

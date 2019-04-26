@@ -13,7 +13,7 @@ you get started with P4 programming, organized into several modules:
 * [P4Runtime](./exercises/p4runtime)
 
 3. Monitoring and Debugging
-* [Explicit Congestion Notification](./exercises/other/ecn)
+* [Explicit Congestion Notification](./exercises/ecn)
 * [Multi-Hop Route Inspection](./exercises/mri)
 
 4. Advanced Behavior
