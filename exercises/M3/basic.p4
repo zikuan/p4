@@ -5,6 +5,8 @@
 const bit<16> TYPE_MYTUNNEL = 0x1212;
 const bit<16> TYPE_IPV4 = 0x800;
 
+#define FLOWLET_INACTIVE_TOUT 50000
+
 /*************************************************************************
 *********************** H E A D E R S  ***********************************
 *************************************************************************/
@@ -14,6 +16,8 @@ typedef bit<48> macAddr_t;
 typedef bit<32> ip4Addr_t;
 
 register <bit<32>>(16384) count;
+register <bit<14>>(16384) per_packet_counter;
+register <bit<48>>(16384) flow;
 //The field length is determined by the header
 header ethernet_t {
     macAddr_t dstAddr;
@@ -28,6 +32,7 @@ header myTunnel_t {
     bit<32>     query;
     bit<32>     query1;
     bit<32>     query2;
+    bit<32>     index;
 }
 
 header ipv4_t {
@@ -142,26 +147,51 @@ control MyIngress(inout headers hdr,
     // action myTunnel_forward(egressSpec_t port) {
     //     standard_metadata.egress_spec = port;
     // }
-
+    
     action set_ecmp_select(bit<16> ecmp_base, bit<32> ecmp_count) {
-            hash(meta.ecmp_select,
-            HashAlgorithm.crc16,
-            ecmp_base,
-            { hdr.ipv4.srcAddr,
-            hdr.ipv4.dstAddr,
-              hdr.ipv4.protocol,
-              hdr.tcp.srcPort,
-              hdr.tcp.dstPort },
-            ecmp_count);
+            // hash(meta.ecmp_select,
+            // HashAlgorithm.crc16,
+            // ecmp_base,
+            // { hdr.ipv4.srcAddr,
+            // hdr.ipv4.dstAddr,
+            //   hdr.ipv4.protocol,
+            //   hdr.tcp.srcPort,
+            //   hdr.tcp.dstPort },
+            // ecmp_count);
+            bit<48> flow_lasttime;
+
+            flow.read(flow_lasttime,0);
+
+            bit<14> tmp_select;
+            per_packet_counter.read(tmp_select,0);
+
+            if(ecmp_count != 1 && standard_metadata.ingress_global_timestamp - flow_lasttime > 35000 && tmp_select == 0){
+                meta.ecmp_select = 1;
+                tmp_select = 1;
+            }else if(ecmp_count != 1 && standard_metadata.ingress_global_timestamp - flow_lasttime > 35000 && tmp_select == 1){
+                meta.ecmp_select = 0;
+                tmp_select = 0;
+            }else{
+                meta.ecmp_select = tmp_select;
+            }
+            flow_lasttime = standard_metadata.ingress_global_timestamp;
+
+            per_packet_counter.write(0,tmp_select);
+
+            flow.write(0,flow_lasttime);
 
             bit<32> temp;
             bit<32> temp1;
             bit<32> temp2;
+
+            bit<32> count_index;
             
             
             count.read(temp,0);
             count.read(temp1,1);
             count.read(temp2,2);
+            count.read(count_index,3);
+            
 
             if(ecmp_count != 1 && meta.ecmp_select == 0){
                 temp = temp + standard_metadata.packet_length;
@@ -169,6 +199,8 @@ control MyIngress(inout headers hdr,
                 hdr.myTunnel.query = temp;
                 hdr.myTunnel.query1 = temp1;
                 hdr.myTunnel.query2 = temp2;
+                count_index = count_index + 1;
+                hdr.myTunnel.index = count_index;
                 
             }else if(ecmp_count != 1 && meta.ecmp_select == 1){
                 temp = temp + standard_metadata.packet_length;
@@ -176,10 +208,13 @@ control MyIngress(inout headers hdr,
                 hdr.myTunnel.query = temp;
                 hdr.myTunnel.query1 = temp1;
                 hdr.myTunnel.query2 = temp2;
+                count_index = count_index + 1;
+                hdr.myTunnel.index = count_index;
             }
             count.write(0,temp);
             count.write(1,temp1);
             count.write(2,temp2);
+            count.write(3,count_index);
         
     }
     action set_nhop(bit<48> nhop_dmac, bit<32> nhop_ipv4, bit<9> port) {

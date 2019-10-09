@@ -6,10 +6,17 @@ import random
 import struct
 import string
 
+
 from scapy.all import sendp, send, get_if_list, get_if_hwaddr
 from scapy.all import Packet
 from scapy.all import Ether, IP, UDP, TCP
 from myTunnel_header import MyTunnel
+
+def randomString(stringLength):
+    """Generate a random string with the combination of lowercase and uppercase letters """
+    randomLength = random.randint(stringLength,stringLength*2)
+    letters = string.ascii_letters
+    return ''.join(random.choice(letters) for i in range(randomLength))
 
 def get_if():
     ifs=get_if_list()
@@ -22,11 +29,6 @@ def get_if():
         print "Cannot find eth0 interface"
         exit(1)
     return iface
-def randomString(stringLength):
-    """Generate a random string with the combination of lowercase and uppercase letters """
-    randomLength = random.randint(stringLength,stringLength*2)
-    letters = string.ascii_letters
-    return ''.join(random.choice(letters) for i in range(randomLength))
 
 def main():
     parser = argparse.ArgumentParser()
@@ -48,7 +50,6 @@ def main():
 #    hexdump(pkt)
 #    print "len(pkt) = ", len(pkt)
         sendp(pkt, iface=iface, verbose=False)
-
 
 if __name__ == '__main__':
     main()

@@ -17,7 +17,7 @@
       "action_name": "MyIngress.set_ecmp_select",
       "action_params": {
         "ecmp_base": 0,
-        "ecmp_count": 2
+        "ecmp_count": 1
       }
     },
     {
@@ -29,19 +29,7 @@
       "action_params": {
         "nhop_dmac": "00:00:00:00:04:02",
         "nhop_ipv4": "10.0.4.2",
-        "port" : 2
-      }
-    },
-    {
-      "table": "MyIngress.ecmp_nhop",
-      "match": {
-        "meta.ecmp_select": 1
-      },
-      "action_name": "MyIngress.set_nhop",
-      "action_params": {
-        "nhop_dmac": "00:00:00:00:04:02",
-        "nhop_ipv4": "10.0.4.2",
-        "port" : 3
+        "port" : 1
       }
     }
   ]
